@@ -346,12 +346,16 @@
 "Assets/Other Assets/TutorialInfo/Scripts/Readme.cs"
 "Assets/Scripts/AutoDestroy.cs"
 "Assets/Scripts/DamageOnContact.cs"
+"Assets/Scripts/Enemy.cs"
 "Assets/Scripts/EnemyShooting.cs"
 "Assets/Scripts/Life.cs"
+"Assets/Scripts/LifePotion.cs"
 "Assets/Scripts/MoveForward.cs"
 "Assets/Scripts/ObjectPool.cs"
 "Assets/Scripts/PlayerMovement.cs"
 "Assets/Scripts/PlayerShooting.cs"
+"Assets/Scripts/ScoreManager.cs"
+"Assets/Scripts/UIManager.cs"
 "Assets/Scripts/WaveSpawner.cs"
 -langversion:8.0
 
