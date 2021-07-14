@@ -11,15 +11,23 @@ public class WaveSpawner : MonoBehaviour
     public float startTime, endTime;
     [Tooltip("Tiempo entre el spawning de enemigos")]
     public float spawnRate;
-
+   
     private void Start()
     {
+        WaveManager.SharedInstance.waves.Add(this);
         InvokeRepeating("SpawnEnemy", startTime, spawnRate);
-        Invoke("CancelInvoke", endTime);
+        Invoke("EndWave", endTime);
     }
+    
 
     private void SpawnEnemy()
     {
         Instantiate(prefab, transform.position, transform.rotation);
+    }
+
+    private void EndWave()
+    {
+        WaveManager.SharedInstance.waves.Remove(this);
+        CancelInvoke();
     }
 }
