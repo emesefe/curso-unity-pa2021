@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -25,5 +26,15 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         scoreText.text = "score: " + ScoreManager.SharedInstance.Amount;
+    }
+
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 }
