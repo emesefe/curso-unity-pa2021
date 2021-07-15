@@ -614,6 +614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 1, z: 0}
+  bulletsAmount: 0
 --- !u!65 &1147750896803890
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -621,12 +622,12 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8172340520037349368}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0502495323d8c47ee8e8504042e475ca, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.10882322, y: 0.23315938, z: 0.11793086}
-  m_Center: {x: 0.0026372033, y: 0.11360695, z: -0.011108382}
+  m_Size: {x: 0.10882322, y: 0.23740275, z: 0.11793086}
+  m_Center: {x: 0, y: 0.1124213, z: 0}
 --- !u!54 &1147750896803892
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -641,7 +642,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &4700273440855228595
 MonoBehaviour:
@@ -655,7 +656,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e95d646ac5e4c83af08409ccefa677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: 100
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  maxLife: 100
+  amount: 0
 --- !u!1 &8172341885879880888
 GameObject:
   m_ObjectHideFlags: 0

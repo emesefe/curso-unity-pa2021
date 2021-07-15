@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,6 +8,7 @@ using UnityEngine.Events;
 public class Life : MonoBehaviour
 { 
     public UnityEvent OnDeath;
+    public float maxLife;
     public float Amount
     {
         get => amount;
@@ -20,9 +22,12 @@ public class Life : MonoBehaviour
             }
         }
     }
-
+    
     [SerializeField]
     private float amount;
 
-   
+    private void Awake()
+    {
+        amount = maxLife;
+    }
 }

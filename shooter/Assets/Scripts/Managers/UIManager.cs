@@ -9,8 +9,6 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager SharedInstance;
 
-    public TextMeshProUGUI scoreText;
-
     private void Awake()
     {
         if (SharedInstance == null)
@@ -21,11 +19,6 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    private void Update()
-    {
-        scoreText.text = "score: " + ScoreManager.SharedInstance.Amount;
     }
 
     public void RestartScene()

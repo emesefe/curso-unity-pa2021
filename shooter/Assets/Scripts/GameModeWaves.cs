@@ -13,7 +13,7 @@ public class GameModeWaves : MonoBehaviour
     [SerializeField]
     private Life baseLife;
 
-    private void Awake()
+    private void Start()
     {
         playerLife.OnDeath.AddListener(CheckGameOverCondition);
         baseLife.OnDeath.AddListener(CheckGameOverCondition);

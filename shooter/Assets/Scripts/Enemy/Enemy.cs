@@ -24,9 +24,9 @@ public class Enemy : MonoBehaviour
         Animator animator = GetComponent<Animator>();
         animator.SetTrigger("Play Die");
                 
-        Invoke("PlayExplosion", 1);
+        Invoke("PlayExplosion", 0.5f);
         
-        Destroy(gameObject, 2);
+        Destroy(gameObject, 1);
         
         EnemyManager.SharedInstance.RemoveEnemy(this);
         ScoreManager.SharedInstance.Amount += pointsAmount;

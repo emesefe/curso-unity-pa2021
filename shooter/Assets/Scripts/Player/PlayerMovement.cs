@@ -8,11 +8,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Tooltip("Velocidad de Movimiento del Personaje en m/s")]
-    [Range(0, 1000)]
-    public float speedMovement = 1;
+    [Range(0, 2000)]
+    public float speedMovement = 1000;
     [Tooltip("Velocidad de Rotación de la Cámara en grados/s")]
     [Range(0, 1000)]
-    public float speedRotation = 1;
+    public float speedRotation = 300;
     
     private Rigidbody rigidbody;
     private float horizontalInput, verticalInput;

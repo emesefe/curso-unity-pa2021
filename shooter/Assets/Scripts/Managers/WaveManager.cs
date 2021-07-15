@@ -12,9 +12,15 @@ public class WaveManager : MonoBehaviour
     {
         get => waves.Count;
     }
+
+    public int TotalWaves
+    {
+        get => totalWaves;
+    }
     
     private List<WaveSpawner> waves;
-
+    private int totalWaves;
+    
     private void Awake()
     {
         if (SharedInstance == null)
@@ -30,6 +36,7 @@ public class WaveManager : MonoBehaviour
     
     public void AddWave(WaveSpawner wave)
     {
+        totalWaves++;
         waves.Add(wave);
         OnWaveChanged.Invoke();
     }

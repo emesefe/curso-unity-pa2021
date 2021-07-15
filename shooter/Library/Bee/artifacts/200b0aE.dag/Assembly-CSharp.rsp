@@ -360,6 +360,12 @@
 "Assets/Scripts/ObjectPool.cs"
 "Assets/Scripts/Player/PlayerMovement.cs"
 "Assets/Scripts/Player/PlayerShooting.cs"
+"Assets/Scripts/UI/EnemiesLeftUI.cs"
+"Assets/Scripts/UI/LifeBar.cs"
+"Assets/Scripts/UI/Pause.cs"
+"Assets/Scripts/UI/PlayerBulletsUI.cs"
+"Assets/Scripts/UI/ScoreUI.cs"
+"Assets/Scripts/UI/WavesUI.cs"
 "Assets/Scripts/WaveSpawner.cs"
 -langversion:8.0
 
