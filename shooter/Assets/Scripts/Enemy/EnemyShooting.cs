@@ -7,7 +7,7 @@ public class EnemyShooting : MonoBehaviour
 {
     public GameObject prefab;
     public GameObject shootingPoint;
-    
+
     private ParticleSystem shootingEffect;
     private Animator _animator;
 

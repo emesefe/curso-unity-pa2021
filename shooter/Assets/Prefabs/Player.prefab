@@ -541,9 +541,9 @@ GameObject:
   - component: {fileID: 8088280611456366604}
   - component: {fileID: 8173452476128024523}
   - component: {fileID: 2713700013560370624}
-  - component: {fileID: 1147750896803890}
   - component: {fileID: 1147750896803892}
   - component: {fileID: 4700273440855228595}
+  - component: {fileID: 157093409}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -599,8 +599,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e17939a93b294c8a917fec4f76322ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedMovement: 5
-  speedRotation: 90
+  speedMovement: 1500
+  speedRotation: 600
 --- !u!114 &2713700013560370624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,20 +614,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 1, z: 0}
-  bulletsAmount: 0
---- !u!65 &1147750896803890
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8172340520037349368}
-  m_Material: {fileID: 13400000, guid: 0502495323d8c47ee8e8504042e475ca, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.10882322, y: 0.23740275, z: 0.11793086}
-  m_Center: {x: 0, y: 0.1124213, z: 0}
+  bulletsAmount: 100
+  shootSound: {fileID: 832227725896677900, guid: fb6e2ad3335714ca4b8c982ec9a53853, type: 3}
 --- !u!54 &1147750896803892
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -637,8 +625,8 @@ Rigidbody:
   m_GameObject: {fileID: 8172340520037349368}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
-  m_AngularDrag: 1
+  m_Drag: 2
+  m_AngularDrag: 10
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -660,7 +648,21 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   maxLife: 100
-  amount: 0
+  amount: 100
+--- !u!136 &157093409
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8172340520037349368}
+  m_Material: {fileID: 13400000, guid: 0502495323d8c47ee8e8504042e475ca, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.05513164
+  m_Height: 0.23877284
+  m_Direction: 1
+  m_Center: {x: 0.00096293865, y: 0.11197116, z: -0.0051701413}
 --- !u!1 &8172341885879880888
 GameObject:
   m_ObjectHideFlags: 0

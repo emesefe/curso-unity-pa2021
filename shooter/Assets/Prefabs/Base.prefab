@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1272669538341157594}
   - component: {fileID: 1272669538344529104}
   - component: {fileID: 1272669538343543394}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: projector_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,9 +96,9 @@ GameObject:
   - component: {fileID: 1272669538327421556}
   - component: {fileID: 1272669537391107962}
   - component: {fileID: 1321720162}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Base
-  m_TagString: Untagged
+  m_TagString: Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 1272669538341121434}
   - component: {fileID: 1272669538325918820}
   - component: {fileID: 1272669538327927998}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5080,7 +5080,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1272669538341155138}
   - component: {fileID: 1272669538351582968}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5174,7 +5174,7 @@ GameObject:
   - component: {fileID: 1272669538341143778}
   - component: {fileID: 1272669538344590798}
   - component: {fileID: 1272669538343344594}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: projector_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

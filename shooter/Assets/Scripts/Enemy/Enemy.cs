@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     [Tooltip("Cantidad de puntos que se obtienen al derrotar al enemigo")]
     public int pointsAmount;
 
+    public GameObject explosionEffect;
+
     private void Awake()
     {
         Life life = GetComponent<Life>();
@@ -24,9 +26,9 @@ public class Enemy : MonoBehaviour
         Animator animator = GetComponent<Animator>();
         animator.SetTrigger("Play Die");
                 
-        Invoke("PlayExplosion", 0.5f);
+        Invoke("PlayExplosion", 1);
         
-        Destroy(gameObject, 1);
+        Destroy(gameObject, 2);
         
         EnemyManager.SharedInstance.RemoveEnemy(this);
         ScoreManager.SharedInstance.Amount += pointsAmount;
@@ -34,7 +36,7 @@ public class Enemy : MonoBehaviour
     
     private void PlayExplosion()
     {
-        ParticleSystem explosion = gameObject.GetComponentInChildren<ParticleSystem>();
+        ParticleSystem explosion = explosionEffect.GetComponent<ParticleSystem>();
         explosion.Play();
     }
 

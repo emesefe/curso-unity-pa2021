@@ -347,6 +347,7 @@
 "Assets/Scripts/AutoDestroy.cs"
 "Assets/Scripts/DamageOnContact.cs"
 "Assets/Scripts/Enemy/Enemy.cs"
+"Assets/Scripts/Enemy/EnemyFSM.cs"
 "Assets/Scripts/Enemy/EnemyShooting.cs"
 "Assets/Scripts/Enemy/Sight.cs"
 "Assets/Scripts/GameModeWaves.cs"
@@ -366,6 +367,7 @@
 "Assets/Scripts/UI/Pause.cs"
 "Assets/Scripts/UI/PlayerBulletsUI.cs"
 "Assets/Scripts/UI/ScoreUI.cs"
+"Assets/Scripts/UI/ShowEnemyLifeBar.cs"
 "Assets/Scripts/UI/WavesUI.cs"
 "Assets/Scripts/WaveSpawner.cs"
 -langversion:8.0
