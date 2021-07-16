@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.Versioning;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
+
 public class PlayerMovement : MonoBehaviour
 {
     [Tooltip("Velocidad de Movimiento del Personaje en m/s")]
@@ -14,12 +14,14 @@ public class PlayerMovement : MonoBehaviour
     [Range(0, 1000)]
     public float speedRotation = 300;
     
-    private Rigidbody rigidbody;
+    private Rigidbody _rigidbody;
     private float horizontalInput, verticalInput;
+    private Animator _animator;
 
     private void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();
+        _animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -31,11 +33,13 @@ public class PlayerMovement : MonoBehaviour
         float space = speedMovement * Time.deltaTime;
         Vector3 dir = new Vector3(0, 0, verticalInput);
         // transform.Translate(dir.normalized * space);
-        rigidbody.AddRelativeForce(dir.normalized * space);
+        _rigidbody.AddRelativeForce(dir.normalized * space);
         
         // Camera Rotation
         float angle = speedRotation * Time.deltaTime;
         // transform.Rotate(0, horizontalInput * angle, 0);
-        rigidbody.AddRelativeTorque(0, horizontalInput * angle, 0);
+        _rigidbody.AddRelativeTorque(0, horizontalInput * angle, 0);
+
+        _animator.SetFloat("Speed", _rigidbody.velocity.magnitude);
     }
 }

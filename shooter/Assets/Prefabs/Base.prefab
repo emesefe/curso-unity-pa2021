@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1272669538341157594}
   - component: {fileID: 1272669538344529104}
   - component: {fileID: 1272669538343543394}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: projector_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,10 +93,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1272669538341123274}
-  - component: {fileID: 1272669538339286162}
   - component: {fileID: 1272669538327421556}
   - component: {fileID: 1272669537391107962}
-  m_Layer: 0
+  - component: {fileID: 1321720162}
+  m_Layer: 7
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,9 +110,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1272669538341395810}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 64, y: 54, z: 64}
-  m_LocalScale: {x: 0.25, y: 0.648, z: 0.25}
+  m_LocalScale: {x: 0.25, y: 1, z: 0.25}
   m_Children:
   - {fileID: 1272669538341121434}
   - {fileID: 1272669538341155138}
@@ -121,20 +121,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1272669538339286162
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1272669538341395810}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: b94be10dedfa9c246b5c439440e580f5, type: 3}
 --- !u!205 &1272669538327421556
 LODGroup:
   m_ObjectHideFlags: 0
@@ -175,7 +161,21 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
-  amount: 0
+  maxLife: 1000
+  amount: 1000
+--- !u!65 &1321720162
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272669538341395810}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.8149414, y: 1.8996353, z: 4.8572083}
+  m_Center: {x: 0.014770508, y: 1.0856438, z: -0.059524536}
 --- !u!1 &1272669538341606376
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 1272669538341121434}
   - component: {fileID: 1272669538325918820}
   - component: {fileID: 1272669538327927998}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5080,7 +5080,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1272669538341155138}
   - component: {fileID: 1272669538351582968}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5112,7 +5112,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.10620204, b: 0, a: 1}
+  m_Color: {r: 0.4319067, g: 0, b: 1, a: 1}
   m_Intensity: 2.02
   m_Range: 7.740295
   m_SpotAngle: 30
@@ -5174,7 +5174,7 @@ GameObject:
   - component: {fileID: 1272669538341143778}
   - component: {fileID: 1272669538344590798}
   - component: {fileID: 1272669538343344594}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: projector_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

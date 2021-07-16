@@ -21,13 +21,22 @@ public class EnemyShooting : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _animator.SetTrigger("Shoot Bullet");
-            shootingEffect.Play();
-
-            GameObject bullet = ObjectPool.SharedInstance.GetFirstPooleableObject();
-            bullet.transform.position = shootingPoint.transform.position;
-            bullet.transform.rotation = shootingPoint.transform.rotation;
-            bullet.SetActive(true); 
+            _animator.SetBool("Shoot Bullet", true);
+            FireEnemyBullet();
         }
+        else
+        {
+            _animator.SetBool("Shoot Bullet", false);
+        }
+    }
+
+    void FireEnemyBullet()
+    {
+        GameObject bullet = ObjectPool.SharedInstance.GetFirstPooleableObject();
+        bullet.transform.position = shootingPoint.transform.position;
+        bullet.transform.rotation = shootingPoint.transform.rotation;
+        bullet.SetActive(true);
+        
+        shootingEffect.Play();
     }
 }

@@ -348,6 +348,7 @@
 "Assets/Scripts/DamageOnContact.cs"
 "Assets/Scripts/Enemy/Enemy.cs"
 "Assets/Scripts/Enemy/EnemyShooting.cs"
+"Assets/Scripts/Enemy/Sight.cs"
 "Assets/Scripts/GameModeWaves.cs"
 "Assets/Scripts/Life.cs"
 "Assets/Scripts/LifePotion.cs"

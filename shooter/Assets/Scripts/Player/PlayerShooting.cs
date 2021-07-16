@@ -9,13 +9,17 @@ public class PlayerShooting : MonoBehaviour
     public Vector3 offset;
 
     public int bulletsAmount;
+    public GameObject shootSound;
     
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && bulletsAmount > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && Time.timeScale > 0)
         {
-            FireBullet();
+            if (bulletsAmount > 0)
+            {
+                FireBullet();
+            }
         }
     }
 
@@ -26,6 +30,8 @@ public class PlayerShooting : MonoBehaviour
         bullet.transform.position = transform.position + offset;
         bullet.transform.rotation = transform.rotation;
         bullet.SetActive(true);
+
+        Instantiate(shootSound, transform.position, transform.rotation).GetComponent<AudioSource>().Play();
         
         bulletsAmount--;
         if (bulletsAmount < 0)
