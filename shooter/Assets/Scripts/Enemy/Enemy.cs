@@ -27,7 +27,6 @@ public class Enemy : MonoBehaviour
         animator.SetTrigger("Play Die");
                 
         Invoke("PlayExplosion", 1);
-        
         Destroy(gameObject, 2);
         
         EnemyManager.SharedInstance.RemoveEnemy(this);

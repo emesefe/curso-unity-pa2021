@@ -6,6 +6,7 @@ using UnityEngine;
 public class Pause : MonoBehaviour
 {
     public GameObject pauseMenu;
+    public GameObject settingsMenu;
 
     private void Awake()
     {
@@ -23,4 +24,18 @@ public class Pause : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
     }
+    
+    public void OpenSettingsMenu()
+    {
+        settingsMenu.SetActive(true);
+        pauseMenu.SetActive(false);
+    }
+    
+    public void CloseSettingsMenu()
+    {
+        settingsMenu.SetActive(false);
+        pauseMenu.SetActive(true);
+    }
+    
+    
 }

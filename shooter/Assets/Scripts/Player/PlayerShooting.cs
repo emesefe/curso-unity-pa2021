@@ -10,7 +10,13 @@ public class PlayerShooting : MonoBehaviour
 
     public int bulletsAmount;
     public GameObject shootSound;
-    
+
+    private ParticleSystem shootingEffect;
+
+    private void Awake()
+    {
+        shootingEffect = GetComponentInChildren<ParticleSystem>();
+    }
 
     private void Update()
     {
@@ -30,6 +36,8 @@ public class PlayerShooting : MonoBehaviour
         bullet.transform.position = transform.position + offset;
         bullet.transform.rotation = transform.rotation;
         bullet.SetActive(true);
+        
+        shootingEffect.Play();
 
         Instantiate(shootSound, transform.position, transform.rotation).GetComponent<AudioSource>().Play();
         
