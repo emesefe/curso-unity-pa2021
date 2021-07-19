@@ -9,6 +9,7 @@ public class Life : MonoBehaviour
 { 
     public UnityEvent OnDeath;
     public float maxLife;
+    
     public float Amount
     {
         get => amount;

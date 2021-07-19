@@ -9,6 +9,9 @@ using UnityEditor;
 
 public class MainMenuManager : MonoBehaviour
 {
+    public GameObject settingsPanel;
+    public GameObject buttonsMainPanel;
+    
     public void StartGame()
     {
         SceneManager.LoadScene("Level 1");
@@ -21,5 +24,17 @@ public class MainMenuManager : MonoBehaviour
         #else
         Application.Quit();
         #endif
+    }
+    
+    public void OpenSettingsPanel()
+    {
+        settingsPanel.SetActive(true);
+        buttonsMainPanel.SetActive(false);
+    }
+    
+    public void CloseSettingsPanel()
+    {
+        settingsPanel.SetActive(false);
+        buttonsMainPanel.SetActive(true);
     }
 }

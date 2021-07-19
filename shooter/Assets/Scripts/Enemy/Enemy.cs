@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
     private void DeathEnemy()
     {
         Animator animator = GetComponent<Animator>();
+        animator.SetBool("Shoot Bullet", false);
         animator.SetTrigger("Play Die");
                 
         Invoke("PlayExplosion", 1);

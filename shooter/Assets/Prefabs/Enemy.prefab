@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7595133354186002696}
   - component: {fileID: 7406736947696960015}
   - component: {fileID: 4262051828783955443}
-  - component: {fileID: 2311812518900130548}
   m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
@@ -101,18 +100,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2311812518900130548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2029757451742275775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 111db8f77559d4c2293d420e71010549, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2158364762862275661
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,8 +197,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  baseAttackDistance: 2
-  playerAttackDistance: 3
+  baseAttackDistance: 4
+  playerAttackDistance: 5
+  shootingPoint: {fileID: 2158364762862275661}
 --- !u!1 &8190354760392776993
 GameObject:
   m_ObjectHideFlags: 0
@@ -6931,12 +6919,11 @@ GameObject:
   m_Component:
   - component: {fileID: 9210515686197929547}
   - component: {fileID: 9210515686188337641}
-  - component: {fileID: 2158364762094069413}
-  - component: {fileID: 52086378399088117}
   - component: {fileID: 7072444062743944396}
   - component: {fileID: 7072444062743944400}
   - component: {fileID: -922062665444078539}
   - component: {fileID: 6335565006756034176}
+  - component: {fileID: -3538167217728068210}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
@@ -6987,33 +6974,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2158364762094069413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9210515686197705323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b20ac77b2f6614ed5bd131f483842ba8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 4406035646645663666, guid: c9556a9cecd264acd9aa75c7a8f3d9e6, type: 3}
-  shootingPoint: {fileID: 2158364762862275661}
---- !u!114 &52086378399088117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9210515686197705323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d883dd7f49ce45d6b547f4c854e9e98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.01
 --- !u!65 &7072444062743944396
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7059,6 +7019,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   maxLife: 20
+  damageableLayer:
+    serializedVersion: 2
+    m_Bits: 512
   amount: 20
 --- !u!114 &6335565006756034176
 MonoBehaviour:
@@ -7074,6 +7037,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointsAmount: 10
   explosionEffect: {fileID: 4479389983107018041}
+--- !u!195 &-3538167217728068210
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9210515686197705323}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 2
+  m_Acceleration: 3
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &9210515686197705325
 GameObject:
   m_ObjectHideFlags: 0

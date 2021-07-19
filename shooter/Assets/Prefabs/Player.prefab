@@ -5455,6 +5455,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   maxLife: 100
+  damageableLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   amount: 100
 --- !u!136 &157093409
 CapsuleCollider:
