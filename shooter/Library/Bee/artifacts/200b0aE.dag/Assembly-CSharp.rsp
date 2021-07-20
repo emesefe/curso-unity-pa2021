@@ -350,6 +350,7 @@
 "Assets/Scripts/Bullet/ObjectPool.cs"
 "Assets/Scripts/DataPersistence.cs"
 "Assets/Scripts/Door.cs"
+"Assets/Scripts/Enemy/CanvasLookAt.cs"
 "Assets/Scripts/Enemy/Enemy.cs"
 "Assets/Scripts/Enemy/EnemyFSM.cs"
 "Assets/Scripts/Enemy/Sight.cs"

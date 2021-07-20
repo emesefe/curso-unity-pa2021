@@ -24,6 +24,7 @@ public class EnemyFSM : MonoBehaviour
     private float lastShootTime;
     private ParticleSystem shootingEffect;
     private Animator _animator;
+    private bool isAlive;
     
     # region METHODS
 
@@ -33,6 +34,15 @@ public class EnemyFSM : MonoBehaviour
         agent = GetComponentInParent<NavMeshAgent>();
         _animator = GetComponentInParent<Animator>();
         shootingEffect = shootingPoint.gameObject.GetComponentInChildren<ParticleSystem>();
+        GetComponentInParent<Life>().OnDeath.AddListener(DeathEnemy);
+        isAlive = true;
+    }
+
+    void DeathEnemy()
+    {
+        isAlive = false;
+        GetComponentInParent<Life>().OnDeath.RemoveListener(DeathEnemy);
+
     }
 
     private void Start()
@@ -142,7 +152,7 @@ public class EnemyFSM : MonoBehaviour
 
     private void ShootTarget()
     {
-        if (Time.timeScale > 0)
+        if (Time.timeScale > 0 && isAlive)
         {
             float timeSinceLastShot = Time.time - lastShootTime;
 

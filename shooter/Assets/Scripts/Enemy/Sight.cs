@@ -15,10 +15,17 @@ public class Sight : MonoBehaviour
 
     public Collider detectedTarget;
 
+    private Collider[] colliders;
+
     // Hemos pasado el filtro de la distancia
     private void Update()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, sightDistance, targetLayers);
+        /*if (Physics.OverlapSphereNonAlloc(transform.position, sightDistance, this.colliders, targetLayers) == 0)
+        {
+            return;
+        }*/
+        
+        colliders = Physics.OverlapSphere(transform.position, sightDistance, targetLayers);
 
         detectedTarget = null;
         
