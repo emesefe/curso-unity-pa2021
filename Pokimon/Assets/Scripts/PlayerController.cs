@@ -3,14 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
+[RequireComponent(typeof(Animator))]
 public class PlayerController : MonoBehaviour
 {
     public float speed;
-    
+    public LayerMask solidObjectsLayer, pokemonLayer;
+    public float collisionDistance, battleDistance;
     
     private bool isMoving;
     private Vector2 input;
+
+    private Animator _animator;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -26,13 +36,24 @@ public class PlayerController : MonoBehaviour
 
             if (input != Vector2.zero)
             {
+                _animator.SetFloat("Move X", input.x);
+                _animator.SetFloat("Move Y", input.y);
+                
                 Vector3 targetPosition = transform.position;
                 targetPosition.x += input.x;
                 targetPosition.y += input.y;
 
-                StartCoroutine(MoveTowards(targetPosition));
+                if (IsAvailable(targetPosition))
+                {
+                    StartCoroutine(MoveTowards(targetPosition));
+                }
             }
         }
+    }
+
+    private void LateUpdate()
+    {
+        _animator.SetBool("Is Moving", isMoving);
     }
 
     private IEnumerator MoveTowards(Vector3 destination)
@@ -48,5 +69,33 @@ public class PlayerController : MonoBehaviour
 
         transform.position = destination;
         isMoving = false;
+
+        CheckForPokemonBattle();
+    }
+
+    /// <summary>
+    /// Comprueba que la zona a la que queremos acceder está disponible
+    /// </summary>
+    /// <param name = "target">Posición a la que queremos acceder</param>
+    /// <returns>Devuelve true si el target está disponible y false en caso contrario</returns>
+    private bool IsAvailable(Vector3 target)
+    {
+        if (Physics2D.OverlapCircle(target, collisionDistance, solidObjectsLayer) != null)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    private void CheckForPokemonBattle()
+    {
+        if (Physics2D.OverlapCircle(transform.position, battleDistance, pokemonLayer) != null)
+        {
+            if (Random.Range(0, 100) < 10)
+            {
+                Debug.Log("BATALLA");
+            }
+        }
     }
 }
