@@ -21,12 +21,16 @@ MonoBehaviour:
   type1: 18
   type2: 0
   learnableMoves:
-  - move: {fileID: 11400000, guid: 4eb189352c01e4d91bd69af6dd22bcdd, type: 2}
+  - move: {fileID: 11400000, guid: 740302eab113842c59e910010bbb83a5, type: 2}
     level: 1
-  - move: {fileID: 11400000, guid: 20ed8caa4565c48428e9aa247ffc6dcf, type: 2}
-    level: 5
-  - move: {fileID: 11400000, guid: d85469e584d8a4cdcb0dcba341eb7527, type: 2}
+  - move: {fileID: 11400000, guid: c9f2e930eeb0546c2a05023db58836b1, type: 2}
+    level: 4
+  - move: {fileID: 11400000, guid: f6f1cb363495349be8d73b97f7ec3cfa, type: 2}
     level: 7
+  - move: {fileID: 11400000, guid: 6716a7783f3644919a2e6203770bb9dc, type: 2}
+    level: 10
+  - move: {fileID: 11400000, guid: d85469e584d8a4cdcb0dcba341eb7527, type: 2}
+    level: 13
   maxHP: 44
   attack: 48
   defense: 65

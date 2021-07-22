@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4f95996717f6440197a8dc1b8b862c4, type: 3}
   m_Name: Tackle
   m_EditorClassIdentifier: 
-  name: Tackle
-  description: Muchos Pokemon conocen este ataque desde el principio.
+  name: Placaje
+  description: Embiste con todo el cuerpo.
   type: 13
+  pp: 35
   power: 40
   accuracy: 100
-  pp: 35

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4f95996717f6440197a8dc1b8b862c4, type: 3}
   m_Name: Scratch
   m_EditorClassIdentifier: 
-  name: Scratch
-  description: "Las garras afiladas se utilizan para infligir da\xF1o al objetivo."
+  name: "Ara\xF1azo"
+  description: "Ara\xF1a con afiladas garras."
   type: 13
+  pp: 35
   power: 40
   accuracy: 100
-  pp: 35

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1cd9e4be626458fb1f5b49150e567b, type: 3}
+  m_Name: Staryu
+  m_EditorClassIdentifier: 
+  id: 120
+  name: Staryu
+  description: "Puede recuperar las extremidades que pierde si mantiene intacto su
+    n\xFAcleo rojo, que brilla en la noche."
+  frontSprite: {fileID: 21300000, guid: 2bf81231f2b4b4ec6b2677022de51e97, type: 3}
+  backSprite: {fileID: 21300000, guid: cf1115e05499944d892abc549a9a8194, type: 3}
+  type1: 18
+  type2: 0
+  learnableMoves: []
+  maxHP: 30
+  attack: 45
+  defense: 55
+  spAttack: 70
+  spDefense: 55
+  speed: 85

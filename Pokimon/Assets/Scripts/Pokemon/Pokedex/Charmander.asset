@@ -24,9 +24,13 @@ MonoBehaviour:
   - move: {fileID: 11400000, guid: 4eb189352c01e4d91bd69af6dd22bcdd, type: 2}
     level: 1
   - move: {fileID: 11400000, guid: 20ed8caa4565c48428e9aa247ffc6dcf, type: 2}
-    level: 5
+    level: 1
   - move: {fileID: 11400000, guid: fcb470e81f52441d3873b670e50aafd2, type: 2}
     level: 7
+  - move: {fileID: 11400000, guid: 08a04bdba884948f6abd662bfa9b2e43, type: 2}
+    level: 10
+  - move: {fileID: 11400000, guid: 71fd72edeccd6490b80bcd49783199fb, type: 2}
+    level: 16
   maxHP: 39
   attack: 52
   defense: 43

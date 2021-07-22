@@ -25,6 +25,6 @@ public class BattleManager : MonoBehaviour
         enemyUnit.SetUpPokemon();
         enemyHUD.SetPokemon(enemyUnit.Pokemon);
         
-        StartCoroutine(battleDialogBox.SetDialog($"Wild {enemyUnit.Pokemon.Base.Name} appeared"));
+        StartCoroutine(battleDialogBox.SetDialog($"Un {enemyUnit.Pokemon.Base.Name} salvaje apareció"));
     }
 }

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4f95996717f6440197a8dc1b8b862c4, type: 3}
   m_Name: Vine Whip
   m_EditorClassIdentifier: 
-  name: Vine Whip
-  description: "El Pokemon utiliza sus l\xE1tigos para golpear al oponente."
+  name: "L\xE1tigo Zepa"
+  description: Azota al objetivo con ramas finas.
   type: 10
+  pp: 25
   power: 45
   accuracy: 100
-  pp: 25

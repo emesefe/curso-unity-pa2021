@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4f95996717f6440197a8dc1b8b862c4, type: 3}
   m_Name: Growl
   m_EditorClassIdentifier: 
-  name: Growl
-  description: Normalmente se puede utilizar hasta 6 veces.
+  name: "Gru\xF1ido"
+  description: "Dulce gru\xF1ido que reduce el Ataque del contrincante."
   type: 13
+  pp: 40
   power: 0
   accuracy: 100
-  pp: 40

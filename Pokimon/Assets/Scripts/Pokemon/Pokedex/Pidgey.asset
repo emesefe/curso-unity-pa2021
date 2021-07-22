@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1cd9e4be626458fb1f5b49150e567b, type: 3}
+  m_Name: Pidgey
+  m_EditorClassIdentifier: 
+  id: 16
+  name: Pidgey
+  description: "Es manso y prefiere evitar los problemas. Sin embargo, si le molestan
+    atacar\xE1 ferozmente."
+  frontSprite: {fileID: 21300000, guid: 803e8d033c81e4bb5967626431b505d9, type: 3}
+  backSprite: {fileID: 21300000, guid: ad0b8f5a5fd8543f6b41fd7814395748, type: 3}
+  type1: 13
+  type2: 8
+  learnableMoves:
+  - move: {fileID: 11400000, guid: 740302eab113842c59e910010bbb83a5, type: 2}
+    level: 1
+  - move: {fileID: 11400000, guid: 9174d725b4d8849cdbd04c5b9b4c902a, type: 2}
+    level: 5
+  - move: {fileID: 11400000, guid: daf8a1d84a37340e9b2d2bd454962a94, type: 2}
+    level: 9
+  - move: {fileID: 11400000, guid: bb0c7e6de380f4c3dad7fec590563b0a, type: 2}
+    level: 13
+  - move: {fileID: 11400000, guid: 829170aced17a46a69d69f67a6d0beb8, type: 2}
+    level: 17
+  maxHP: 40
+  attack: 45
+  defense: 40
+  spAttack: 35
+  spDefense: 35
+  speed: 56

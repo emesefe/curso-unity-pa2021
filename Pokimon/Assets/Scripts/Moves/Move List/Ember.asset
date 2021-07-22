@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4f95996717f6440197a8dc1b8b862c4, type: 3}
   m_Name: Ember
   m_EditorClassIdentifier: 
-  name: Ember
-  description: "Tiene una probabilidad de uno entre diez de dejar al objetivo con
-    una quemadura da\xF1ina."
+  name: Ascuas
+  description: "Ataca con llamas peque\xF1as que pueden causar quemaduras."
   type: 7
+  pp: 25
   power: 40
   accuracy: 100
-  pp: 25
