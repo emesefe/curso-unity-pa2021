@@ -73,4 +73,29 @@ public class Pokemon
             }
         }
     }
+
+    public bool ReceiveDamage(Pokemon attacker, Move move)
+    {
+        float modifiers = Random.Range(0.85f, 1.0f);
+        
+        // Fórmula sacada de Bulbapedia para el daño infligido
+        float baseDamage = ((2 * attacker.Level / 5.0f + 2) * move.Base.Power * (attacker.Attack / (float) Defense)) / 50.0f + 2;
+
+        int totalDamage = Mathf.FloorToInt(baseDamage * modifiers);
+
+        HP -= totalDamage;
+
+        if (HP <= 0)
+        {
+            HP = 0;
+            return true;
+        }
+        return false;
+    }
+
+    public Move RandomMove()
+    {
+        int randId = Random.Range(0, Moves.Count);
+        return Moves[randId];
+    }
 }

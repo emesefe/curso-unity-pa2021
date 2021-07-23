@@ -611,7 +611,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1322,6 +1322,18 @@ MonoBehaviour:
   actionSelector: {fileID: 1009147668}
   movementSelector: {fileID: 1435736088}
   movementDescription: {fileID: 1494671966}
+  actionTexts:
+  - {fileID: 1854785522}
+  - {fileID: 1160018318}
+  movementTexts:
+  - {fileID: 1439365006}
+  - {fileID: 2072067796}
+  - {fileID: 855162652}
+  - {fileID: 1144162069}
+  ppText: {fileID: 32258884}
+  typeText: {fileID: 1224644674}
+  selectedColor: {r: 0.28235295, g: 0.72156864, b: 0.40784317, a: 1}
+  defaultColor: {r: 0.1960784, g: 0.1960784, b: 0.1960784, a: 1}
 --- !u!1 &979176134
 GameObject:
   m_ObjectHideFlags: 0
@@ -18956,7 +18968,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 25, y: -20}
+  m_AnchoredPosition: {x: 25, y: -30}
   m_SizeDelta: {x: 120, y: 30}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1160018318
@@ -18992,7 +19004,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Run
+  m_Text: Huir
 --- !u!222 &1160018319
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19275,7 +19287,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -109.27, y: 4.43}
+  m_AnchoredPosition: {x: -109.27, y: 4.4300003}
   m_SizeDelta: {x: 509.46, y: 122.51}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1435736090
@@ -19416,7 +19428,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 242.63, y: 4.4324}
+  m_AnchoredPosition: {x: 242.63, y: 4.4324036}
   m_SizeDelta: {x: 269.35, y: 122.51}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1494671968
@@ -19570,7 +19582,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -108.99987, y: 30}
+  m_AnchoredPosition: {x: -108.99987, y: 31}
   m_SizeDelta: {x: 248, y: 18}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &1671212722
@@ -21192,7 +21204,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -108.99987, y: 30}
+  m_AnchoredPosition: {x: -108.99987, y: 31}
   m_SizeDelta: {x: 248, y: 18}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1779053541
@@ -21321,7 +21333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1105edfafa8fc4eccbb5c6884d5f3cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _base: {fileID: 11400000, guid: 447ee5d610b6c44b9953e781e5127102, type: 2}
+  _base: {fileID: 11400000, guid: 336873e4cdf88433b88a7c66866837c7, type: 2}
   _level: 8
   isPlayer: 1
 --- !u!1 &1818457931
@@ -21369,11 +21381,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e977e9c1bce5a4dada1069b430b26f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleState: 0
   playerUnit: {fileID: 1801129038}
   playerHUD: {fileID: 1952231909}
   enemyUnit: {fileID: 1983545978}
   enemyHUD: {fileID: 1671212723}
   battleDialogBox: {fileID: 963342307}
+  timeBetweenClicks: 0.5
 --- !u!1 &1854785520
 GameObject:
   m_ObjectHideFlags: 0
@@ -21408,7 +21422,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 25, y: 20}
+  m_AnchoredPosition: {x: 25, y: 30}
   m_SizeDelta: {x: 120, y: 30}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1854785522
@@ -21444,7 +21458,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Fight
+  m_Text: Luchar
 --- !u!222 &1854785523
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -27106,7 +27120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1105edfafa8fc4eccbb5c6884d5f3cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _base: {fileID: 11400000, guid: 336873e4cdf88433b88a7c66866837c7, type: 2}
+  _base: {fileID: 11400000, guid: 447ee5d610b6c44b9953e781e5127102, type: 2}
   _level: 5
   isPlayer: 0
 --- !u!1 &2030153784
