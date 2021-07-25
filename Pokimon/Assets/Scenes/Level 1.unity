@@ -997,6 +997,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1604288891}
+  highHPColor: {r: 0.28235295, g: 0.72156864, b: 0.40784317, a: 1}
+  lowHPColor: {r: 0.87843144, g: 0.75294125, b: 0.37254903, a: 1}
+  dangerHPColor: {r: 0.7411765, g: 0.16078432, b: 0.1254902, a: 1}
+  lowHPThreshold: 0.4
+  dangerHPThreshold: 0.1
 --- !u!224 &733755034
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1237,6 +1242,7 @@ GameObject:
   - component: {fileID: 963342306}
   - component: {fileID: 963342305}
   - component: {fileID: 963342307}
+  - component: {fileID: 963342308}
   m_Layer: 0
   m_Name: Battle Dialog Box
   m_TagString: Untagged
@@ -1318,6 +1324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charactersPerSecond: 10
+  isWriting: 0
   dialogText: {fileID: 1930381462}
   actionSelector: {fileID: 1009147668}
   movementSelector: {fileID: 1435736088}
@@ -1334,6 +1341,103 @@ MonoBehaviour:
   typeText: {fileID: 1224644674}
   selectedColor: {r: 0.28235295, g: 0.72156864, b: 0.40784317, a: 1}
   defaultColor: {r: 0.1960784, g: 0.1960784, b: 0.1960784, a: 1}
+  timeToWaitAfterText: 1
+--- !u!82 &963342308
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963342303}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 0b6c9c514023e524594a171a8f4bca92, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &979176134
 GameObject:
   m_ObjectHideFlags: 0
@@ -19510,6 +19614,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1779053539}
+  highHPColor: {r: 0.28235295, g: 0.72156864, b: 0.40784317, a: 1}
+  lowHPColor: {r: 0.87843144, g: 0.75294125, b: 0.37254903, a: 1}
+  dangerHPColor: {r: 0.7411765, g: 0.16078432, b: 0.1254902, a: 1}
+  lowHPThreshold: 0.4
+  dangerHPThreshold: 0.1
 --- !u!1 &1604288891
 GameObject:
   m_ObjectHideFlags: 0
@@ -21280,7 +21389,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -213, y: -79}
+  m_AnchoredPosition: {x: -215, y: -79}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1801129036
@@ -21336,6 +21445,8 @@ MonoBehaviour:
   _base: {fileID: 11400000, guid: 336873e4cdf88433b88a7c66866837c7, type: 2}
   _level: 8
   isPlayer: 1
+  startAnimationDuration: 2
+  weakenedAnimationDuration: 0
 --- !u!1 &1818457931
 GameObject:
   m_ObjectHideFlags: 0
@@ -27067,7 +27178,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 206, y: 88}
+  m_AnchoredPosition: {x: 205, y: 88}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1983545976
@@ -27120,9 +27231,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1105edfafa8fc4eccbb5c6884d5f3cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _base: {fileID: 11400000, guid: 447ee5d610b6c44b9953e781e5127102, type: 2}
+  _base: {fileID: 11400000, guid: 10be787f6e14d4b37a7ef0e2959f5196, type: 2}
   _level: 5
   isPlayer: 0
+  startAnimationDuration: 2
+  weakenedAnimationDuration: 2
 --- !u!1 &2030153784
 GameObject:
   m_ObjectHideFlags: 0

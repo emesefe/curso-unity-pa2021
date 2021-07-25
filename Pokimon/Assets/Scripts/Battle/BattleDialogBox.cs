@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,10 +24,17 @@ public class BattleDialogBox : MonoBehaviour
 
     [SerializeField] private float timeToWaitAfterText = 1;
 
+    private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
+
     public IEnumerator SetDialog(string message)
     {
         isWriting = true;
-        // TODO: Reproducir sonido letras 
+        _audioSource.Play();
         dialogText.text = "";
         
         foreach (char character in message)
@@ -34,9 +42,8 @@ public class BattleDialogBox : MonoBehaviour
             dialogText.text += character;
             yield return new WaitForSeconds(1 / charactersPerSecond);
         }
-        
+        _audioSource.Stop();
         yield return new WaitForSeconds(timeToWaitAfterText);
-        // TODO: Mutear sonido letras
         isWriting = false;
     }
 

@@ -10,13 +10,17 @@ public class BattleUnit : MonoBehaviour
     public PokemonBase _base;
     public int _level;
     public bool isPlayer;
+    
+    public Pokemon Pokemon { get; set; }
 
     private Image pokemonImage;
     private Vector3 initialPosition;
     private float initialOffset = 400;
-    [SerializeField] private float startAnimationDuration;
+    private float weakenedOffset = 150;
     
-    public Pokemon Pokemon { get; set; }
+    [SerializeField] private float startAnimationDuration;
+    [SerializeField] private float weakenedAnimationDuration;
+
 
     private void Awake()
     {
@@ -36,5 +40,21 @@ public class BattleUnit : MonoBehaviour
     {
         pokemonImage.transform.localPosition = new Vector3(initialPosition.x + (isPlayer ? -1 : 1) * initialOffset, initialPosition.y);
         pokemonImage.transform.DOLocalMoveX(initialPosition.x, startAnimationDuration);
+    }
+
+    public void PlayWeakenedAnimation()
+    {
+        pokemonImage.transform.DOLocalMoveY(initialPosition.y - weakenedOffset, weakenedAnimationDuration);
+        pokemonImage.DOFade(0, weakenedAnimationDuration);
+    }
+    
+    public void PlayAttackAnimation()
+    {
+        // TODO
+    }
+    
+    public void PlayReceiveDamageAnimation()
+    {
+        // TODO
     }
 }

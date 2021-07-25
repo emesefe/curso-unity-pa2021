@@ -120,6 +120,7 @@ public class BattleManager : MonoBehaviour
         if (pokemonWeakened)
         {
             yield return battleDialogBox.SetDialog($"{enemyUnit.Pokemon.Base.Name} ha sido debilitado.");
+            enemyUnit.PlayWeakenedAnimation();
         }
         else
         {
@@ -140,6 +141,7 @@ public class BattleManager : MonoBehaviour
         if (pokemonWeakened)
         {
             yield return battleDialogBox.SetDialog($"¡Oh, no! {playerUnit.Pokemon.Base.Name} ha sido debilitado.");
+            playerUnit.PlayWeakenedAnimation();
         }
         else
         {
