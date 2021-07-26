@@ -48,6 +48,8 @@ public class Pokemon
     private int _level;
     private List<Move> _moves;
     private int _hp;
+
+    private float criticalProbability = 8; // 8%
     
     #endregion
         
@@ -74,12 +76,31 @@ public class Pokemon
         }
     }
 
-    public bool ReceiveDamage(Pokemon attacker, Move move)
+    public DamageDescription ReceiveDamage(Pokemon attacker, Move move)
     {
-        float modifiers = Random.Range(0.85f, 1.0f);
+        float critical = 1f;
+        if (Random.Range(0, 100) < criticalProbability)
+        {
+            critical = 2f;
+        }
+
+        float type1 = TypeMatrix.GetMultiplierEffectiveneess(move.Base.Type, Base.Type1);
+        float type2 = TypeMatrix.GetMultiplierEffectiveneess(move.Base.Type, Base.Type2);
+
+        DamageDescription damageDescription = new DamageDescription()
+        {
+            Critical = critical,
+            Type = type1 * type2,
+            Weakened = false
+        };
+
+        float attack = (move.Base.IsSpecialMove ? attacker.SPAttack : attacker.Attack);
+        float defense = (move.Base.IsSpecialMove ? SPDefense : Defense);
+
+        float modifiers = Random.Range(0.85f, 1.0f) * type1 * type2 * critical;
         
         // Fórmula sacada de Bulbapedia para el daño infligido
-        float baseDamage = ((2 * attacker.Level / 5.0f + 2) * move.Base.Power * (attacker.Attack / (float) Defense)) / 50.0f + 2;
+        float baseDamage = ((2 * attacker.Level / 5.0f + 2) * move.Base.Power * (attack / (float) defense)) / 50.0f + 2;
 
         int totalDamage = Mathf.FloorToInt(baseDamage * modifiers);
 
@@ -88,9 +109,10 @@ public class Pokemon
         if (HP <= 0)
         {
             HP = 0;
-            return true;
+            damageDescription.Weakened = true;
         }
-        return false;
+        
+        return damageDescription;
     }
 
     public Move RandomMove()
@@ -98,4 +120,11 @@ public class Pokemon
         int randId = Random.Range(0, Moves.Count);
         return Moves[randId];
     }
+}
+
+public class DamageDescription
+{
+    public float Critical { get; set; }
+    public float Type { get; set; }
+    public bool Weakened { get; set; }
 }

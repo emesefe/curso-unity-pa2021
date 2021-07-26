@@ -7,25 +7,40 @@ using DG.Tweening;
 
 public class BattleUnit : MonoBehaviour
 {
+    #region VARIABLES PUBLICAS
+    
     public PokemonBase _base;
     public int _level;
     public bool isPlayer;
     
     public Pokemon Pokemon { get; set; }
+    
+    #endregion
 
+
+    #region VARIABLES PRIVADAS
+    
     private Image pokemonImage;
     private Vector3 initialPosition;
+    private Color initialColor;
     private float initialOffset = 400;
     private float weakenedOffset = 150;
+    private float attackOffset = 50;
+    private int totalBlinksRecieveAttackAnimation = 2;
     
-    [SerializeField] private float startAnimationDuration;
-    [SerializeField] private float weakenedAnimationDuration;
+    private float startAnimationDuration = 2;
+    private float weakenedAnimationDuration = 2;
+    private float attackAnimationDuration = 0.3f;
+    private float recieveAttackAnimationDuration = 0.2f;
+    
+    #endregion
 
 
     private void Awake()
     {
         pokemonImage = GetComponent<Image>();
         initialPosition = pokemonImage.transform.localPosition;
+        initialColor = pokemonImage.color;
     }
 
     public void SetUpPokemon()
@@ -33,6 +48,7 @@ public class BattleUnit : MonoBehaviour
         Pokemon = new Pokemon(_base, _level);
 
         pokemonImage.sprite = (isPlayer ? Pokemon.Base.BackSprite : Pokemon.Base.FrontSprite);
+        pokemonImage.color = initialColor;
         PlayStartAnimation();
     }
 
@@ -44,17 +60,29 @@ public class BattleUnit : MonoBehaviour
 
     public void PlayWeakenedAnimation()
     {
-        pokemonImage.transform.DOLocalMoveY(initialPosition.y - weakenedOffset, weakenedAnimationDuration);
-        pokemonImage.DOFade(0, weakenedAnimationDuration);
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(pokemonImage.transform.DOLocalMoveY(initialPosition.y - weakenedOffset, weakenedAnimationDuration));
+        sequence.Join(pokemonImage.DOFade(0, weakenedAnimationDuration));
     }
     
     public void PlayAttackAnimation()
     {
-        // TODO
+        // Primero se reproduce una animación e inmediatamente después la siguiente. Eso es una secuencia
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(pokemonImage.transform.DOLocalMoveX(initialPosition.x + (isPlayer ? 1 : -1) * attackOffset,
+            attackAnimationDuration));
+        sequence.Append(pokemonImage.transform.DOLocalMoveX(initialPosition.x, attackAnimationDuration));
+
     }
     
-    public void PlayReceiveDamageAnimation()
+    public void PlayReceiveAttackAnimation()
     {
-        // TODO
+        Sequence sequence = DOTween.Sequence();
+        
+        for (int i = 0; i < totalBlinksRecieveAttackAnimation; i++)
+        {
+            sequence.Append(pokemonImage.DOColor(Color.gray, recieveAttackAnimationDuration));
+            sequence.Append(pokemonImage.DOColor(initialColor, recieveAttackAnimationDuration));
+        }
     }
 }

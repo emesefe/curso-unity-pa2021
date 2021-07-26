@@ -348,9 +348,10 @@
 "Assets/Scripts/Battle/BattleManager.cs"
 "Assets/Scripts/Battle/BattleUnit.cs"
 "Assets/Scripts/Battle/HealthBar.cs"
+"Assets/Scripts/GameManager.cs"
 "Assets/Scripts/Moves/Move.cs"
 "Assets/Scripts/Moves/MoveBase.cs"
-"Assets/Scripts/PlayerController.cs"
+"Assets/Scripts/Player/PlayerController.cs"
 "Assets/Scripts/Pokemon/Pokemon.cs"
 "Assets/Scripts/Pokemon/PokemonBase.cs"
 -langversion:8.0

@@ -15,6 +15,8 @@ public enum BattleState
 public class BattleManager : MonoBehaviour
 {
     public BattleState battleState;
+
+    public event Action<bool> OnBattleFinished;
     
     [SerializeField] private BattleUnit playerUnit;
     [SerializeField] private BattleHUD playerHUD;
@@ -30,12 +32,15 @@ public class BattleManager : MonoBehaviour
 
     private int currentSelectedMovement;
 
-    private void Start()
+    private float attackAnimationDuration = 0.6f;
+    private float weakenedAnimationDuration = 2f;
+
+    public void HandleStartBattle()
     {
         StartCoroutine(SetUpBattle());
     }
 
-    private void Update()
+    public void HandleUpdate()
     {
         timeSinceLastClick += Time.deltaTime;
 
@@ -112,15 +117,27 @@ public class BattleManager : MonoBehaviour
     private IEnumerator PerformPlayerMovement()
     {
         Move move = playerUnit.Pokemon.Moves[currentSelectedMovement];
+        move.PP--;
         yield return battleDialogBox.SetDialog($"{playerUnit.Pokemon.Base.Name} ha usado {move.Base.Name}.");
+        
+        int oldHPValue = enemyUnit.Pokemon.HP;
+        
+        playerUnit.PlayAttackAnimation();
+        yield return new WaitForSeconds(attackAnimationDuration);
+        
+        enemyUnit.PlayReceiveAttackAnimation();
+        DamageDescription damageDescription = enemyUnit.Pokemon.ReceiveDamage(playerUnit.Pokemon, move);
+        enemyHUD.UpdatePokemonData(oldHPValue);
 
-        bool pokemonWeakened = enemyUnit.Pokemon.ReceiveDamage(playerUnit.Pokemon, move);
-        enemyHUD.UpdatePokemonData();
-
-        if (pokemonWeakened)
+        yield return ShowDamageDescription(damageDescription);
+        
+        if (damageDescription.Weakened)
         {
             yield return battleDialogBox.SetDialog($"{enemyUnit.Pokemon.Base.Name} ha sido debilitado.");
             enemyUnit.PlayWeakenedAnimation();
+            yield return new WaitForSeconds(weakenedAnimationDuration);
+            
+            OnBattleFinished(true);
         }
         else
         {
@@ -133,15 +150,27 @@ public class BattleManager : MonoBehaviour
         battleState = BattleState.EnemyMove;
 
         Move move = enemyUnit.Pokemon.RandomMove();
+        move.PP--;
         yield return battleDialogBox.SetDialog($"{enemyUnit.Pokemon.Base.Name} ha usado {move.Base.Name}.");
 
-        bool pokemonWeakened = playerUnit.Pokemon.ReceiveDamage(enemyUnit.Pokemon, move);
-        playerHUD.UpdatePokemonData();
+        int oldHPValue = playerUnit.Pokemon.HP;
         
-        if (pokemonWeakened)
+        enemyUnit.PlayAttackAnimation();
+        yield return new WaitForSeconds(attackAnimationDuration);
+
+        playerUnit.PlayReceiveAttackAnimation();
+        DamageDescription damageDescription = playerUnit.Pokemon.ReceiveDamage(enemyUnit.Pokemon, move);
+        playerHUD.UpdatePokemonData(oldHPValue);
+        
+        yield return ShowDamageDescription(damageDescription);
+        
+        if (damageDescription.Weakened)
         {
             yield return battleDialogBox.SetDialog($"¡Oh, no! {playerUnit.Pokemon.Base.Name} ha sido debilitado.");
             playerUnit.PlayWeakenedAnimation();
+            
+            yield return new WaitForSeconds(weakenedAnimationDuration);
+            OnBattleFinished(false);
         }
         else
         {
@@ -229,6 +258,23 @@ public class BattleManager : MonoBehaviour
             battleDialogBox.ToggleMovements(false);
 
             StartCoroutine(PerformPlayerMovement());
+        }
+    }
+
+    private IEnumerator ShowDamageDescription(DamageDescription damageDescription)
+    {
+        if (damageDescription.Critical > 1)
+        {
+            yield return battleDialogBox.SetDialog("¡Golpe crítico!");
+        }
+
+        if (damageDescription.Type > 1)
+        {
+            yield return battleDialogBox.SetDialog("¡Es súper efectivo!");
+            
+        }else if (damageDescription.Type < 1)
+        {
+            yield return battleDialogBox.SetDialog("No es muy efectivo...");
         }
     }
 }

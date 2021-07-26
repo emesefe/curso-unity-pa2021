@@ -6,7 +6,34 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
+    #region VARIABLES PUBLICAS
+    
     public GameObject healthBar;
+
+    public Color colorBar
+    {
+        get
+        {
+            float localScale = healthBar.transform.localScale.x;
+            if (localScale < dangerHPThreshold)
+            {
+                return dangerHPColor;
+                
+            }else  if (localScale < lowHPThreshold)
+            {
+                return lowHPColor;
+            }
+            else
+            {
+                return highHPColor;
+            }
+        }
+            
+    }
+    
+    #endregion
+
+    #region VARIABLES PRIVADAS
 
     private Image healthBarImage;
 
@@ -14,12 +41,14 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Color lowHPColor;
     [SerializeField] private Color dangerHPColor;
 
-    [SerializeField] private float lowHPThreshold = 0.4f;
-    [SerializeField] private float dangerHPThreshold = 0.1f;
+    private float lowHPThreshold = 0.5f;
+    private float dangerHPThreshold = 0.15f;
+    
+    #endregion
 
     private void Start()
     {
-        healthBarImage = healthBar.GetComponent<Image>();
+        healthBar.transform.localScale = new Vector3(1, 1);
     }
 
 
@@ -30,6 +59,7 @@ public class HealthBar : MonoBehaviour
     public void SetHP(float normalizedValue)
     {
         healthBar.transform.localScale = new Vector3(normalizedValue, 1f); 
+        healthBar.GetComponent<Image>().color = colorBar;
     }
 
     /// <summary>
@@ -46,18 +76,7 @@ public class HealthBar : MonoBehaviour
         {
             currentScale -= updateQuantity * Time.deltaTime;
             healthBar.transform.localScale = new Vector3(currentScale, 1);
-            
-            if (currentScale < dangerHPThreshold)
-            {
-                healthBarImage.color = dangerHPColor;
-            }else  if (currentScale < lowHPThreshold)
-            {
-                healthBarImage.color = lowHPColor;
-            }
-            else
-            {
-                healthBar.GetComponent<Image>().color = highHPColor;
-            }
+            healthBar.GetComponent<Image>().color = colorBar;
 
             yield return null;
         }
