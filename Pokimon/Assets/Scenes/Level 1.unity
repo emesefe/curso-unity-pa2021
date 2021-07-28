@@ -1180,7 +1180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokemons:
   - _base: {fileID: 11400000, guid: 10be787f6e14d4b37a7ef0e2959f5196, type: 2}
-    _level: 1
+    _level: 6
   - _base: {fileID: 11400000, guid: 7979464e5e8a14db0a1a478688d32c2a, type: 2}
     _level: 7
   - _base: {fileID: 11400000, guid: bc5f07e45d65d4b299015ffa88d10ced, type: 2}
@@ -23063,11 +23063,6 @@ MonoBehaviour:
   timeBetweenClicks: 0.5
   partyHud: {fileID: 823026622}
   pokeball: {fileID: 7250837629991520025, guid: 4c4d8cbafc58145da8085a0060ec5dda, type: 3}
-  pokeballInitialOffset: {x: -5, y: 0, z: 0}
-  pokeballFinalOffset: {x: 0, y: 1.25, z: 0}
-  pokeballThrowAnimationDuration: 1.5
-  pokeballFallAnimationDuration: 0.5
-  pokeballToGroundDistance: 1.6
 --- !u!1 &1854785520
 GameObject:
   m_ObjectHideFlags: 0

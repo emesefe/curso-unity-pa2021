@@ -30,7 +30,6 @@ public class BattleManager : MonoBehaviour
     #region VARIABLES PRIVADAS
     
     [SerializeField] private BattleUnit playerUnit;
-    
     [SerializeField] private BattleUnit enemyUnit;
 
     [SerializeField] private BattleDialogBox battleDialogBox;
@@ -41,9 +40,6 @@ public class BattleManager : MonoBehaviour
     
     private float timeSinceLastClick;
     [SerializeField] private float timeBetweenClicks = 1.0f;
-    
-    private float attackAnimationDuration = 0.6f;
-    private float weakenedAnimationDuration = 2f;
 
     private PokemonParty playerParty;
     private Pokemon wildPokemon;
@@ -52,13 +48,15 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] private GameObject pokeball;
     
+    private float attackAnimationDuration = 0.6f;
+    private float weakenedAnimationDuration = 2f;
     private Vector3 pokeballInitialOffset = new Vector3(-5, 0, 0);
-    private Vector3 pokeballFinalOffset = new Vector3(0, 1.25f, 0);
-    private float pokeballThrowAnimationDuration = 1;
-    private float pokeballFallAnimationDuration = 1;
+    private Vector3 pokeballFinalOffset = new Vector3(0, 1.5f, 0);
+    private float pokeballThrowAnimationDuration = 1.5f;
+    private float pokeballFallAnimationDuration = 0.75f;
     private float jumpPower = 2;
     private int numberJumps = 1;
-    private float pokeballToGroundDistance = 2;
+    private float pokeballToGroundDistance = 1.5f;
     private int numberOfShakes;
     private float timeBetweenPokeballShakes = 0.5f;
     private float pokeballShakeDuration = 0.6f;
@@ -399,14 +397,14 @@ public class BattleManager : MonoBehaviour
 
         partyHud.InitPartyHud();
         
+        battleDialogBox.ToggleActions(true);
+        battleDialogBox.ToggleActions(false);
+        battleDialogBox.ToggleMovements(false);
+        
         yield  return battleDialogBox.SetDialog($"Un {enemyUnit.Pokemon.Base.Name} salvaje apareció.");
         
         if (enemyUnit.Pokemon.Speed > playerUnit.Pokemon.Speed)
         {
-            battleDialogBox.ToggleActions(true);
-            battleDialogBox.ToggleActions(false);
-            battleDialogBox.ToggleMovements(false);
-            
             yield return battleDialogBox.SetDialog("El enemigo ataca primero.");
             yield return PerformEnemyMovement();
         }
@@ -517,6 +515,10 @@ public class BattleManager : MonoBehaviour
     private IEnumerator ThrowPokeball()
     {
         battleState = BattleState.Busy;
+        
+        battleDialogBox.ToggleActions(true);
+        battleDialogBox.ToggleActions(false);
+        battleDialogBox.ToggleMovements(false);
 
         yield return battleDialogBox.SetDialog($"¡Has lanzado una {pokeball.name}!");
 

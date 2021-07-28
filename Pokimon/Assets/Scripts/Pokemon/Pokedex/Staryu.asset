@@ -19,7 +19,17 @@ MonoBehaviour:
   backSprite: {fileID: 21300000, guid: cf1115e05499944d892abc549a9a8194, type: 3}
   type1: 18
   type2: 0
-  learnableMoves: []
+  learnableMoves:
+  - move: {fileID: 11400000, guid: 740302eab113842c59e910010bbb83a5, type: 2}
+    level: 1
+  - move: {fileID: 11400000, guid: a59309529df474b878d0a4352740a83e, type: 2}
+    level: 1
+  - move: {fileID: 11400000, guid: f6f1cb363495349be8d73b97f7ec3cfa, type: 2}
+    level: 6
+  - move: {fileID: 11400000, guid: cf2fb1581df0646a2bd78b3a5642e6f7, type: 2}
+    level: 10
+  - move: {fileID: 11400000, guid: 2ef47bd2d67d2497ea1d467a5c6ed76c, type: 2}
+    level: 12
   maxHP: 30
   attack: 45
   defense: 55
