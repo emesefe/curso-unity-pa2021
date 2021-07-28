@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1cd9e4be626458fb1f5b49150e567b, type: 3}
   m_Name: Togepi
   m_EditorClassIdentifier: 
-  id: 175
   name: Togepi
   description: "Se dice que su cascar\xF3n est\xE1 lleno de alegr\xEDa que comparte
     con las personas de buen coraz\xF3n."
@@ -20,9 +19,11 @@ MonoBehaviour:
   backSprite: {fileID: 21300000, guid: e0837eef1f5584058b6666a4478e141f, type: 3}
   type1: 5
   type2: 0
+  learnableMoves: []
   maxHP: 35
   attack: 20
   defense: 65
   spAttack: 40
   spDefense: 65
   speed: 20
+  catchRate: 190

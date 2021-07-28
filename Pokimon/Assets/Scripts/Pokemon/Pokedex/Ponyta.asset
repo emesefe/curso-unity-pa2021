@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1cd9e4be626458fb1f5b49150e567b, type: 3}
   m_Name: Ponyta
   m_EditorClassIdentifier: 
-  id: 77
   name: Ponyta
   description: "Sus impresionantes cola y crin de fuego le crecen una hora despu\xE9s
     de nacer."
@@ -27,3 +26,4 @@ MonoBehaviour:
   spAttack: 65
   spDefense: 65
   speed: 90
+  catchRate: 190

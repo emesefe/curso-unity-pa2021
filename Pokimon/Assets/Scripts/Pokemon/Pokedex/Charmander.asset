@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1cd9e4be626458fb1f5b49150e567b, type: 3}
   m_Name: Charmander
   m_EditorClassIdentifier: 
-  id: 4
   name: Charmander
   description: "La llama de la punta de su cola indica su salud. Si Charmander est\xE1
     sano, arder\xE1 con m\xE1s fuerza."
@@ -37,3 +36,4 @@ MonoBehaviour:
   spAttack: 60
   spDefense: 50
   speed: 65
+  catchRate: 45

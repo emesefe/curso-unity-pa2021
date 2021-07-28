@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1cd9e4be626458fb1f5b49150e567b, type: 3}
   m_Name: Meowth
   m_EditorClassIdentifier: 
-  id: 52
   name: Meowth
   description: Es de Naturaleza nocturna. Le atraen los objetos brillantes.
   frontSprite: {fileID: 21300000, guid: 31959f64166e8419dabc09345104bafa, type: 3}
@@ -26,3 +25,4 @@ MonoBehaviour:
   spAttack: 40
   spDefense: 40
   speed: 90
+  catchRate: 255

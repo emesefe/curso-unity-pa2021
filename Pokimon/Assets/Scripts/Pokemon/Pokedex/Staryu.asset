@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1cd9e4be626458fb1f5b49150e567b, type: 3}
   m_Name: Staryu
   m_EditorClassIdentifier: 
-  id: 120
   name: Staryu
   description: "Puede recuperar las extremidades que pierde si mantiene intacto su
     n\xFAcleo rojo, que brilla en la noche."
@@ -27,3 +26,4 @@ MonoBehaviour:
   spAttack: 70
   spDefense: 55
   speed: 85
+  catchRate: 255

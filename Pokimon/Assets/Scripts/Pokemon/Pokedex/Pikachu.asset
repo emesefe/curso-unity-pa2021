@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1cd9e4be626458fb1f5b49150e567b, type: 3}
   m_Name: Pikachu
   m_EditorClassIdentifier: 
-  id: 25
   name: Pikachu
   description: Vive en grupo en los bosques. Almacena electricidad en las bolsas
     de sus mejillas.
@@ -37,3 +36,4 @@ MonoBehaviour:
   spAttack: 50
   spDefense: 50
   speed: 90
+  catchRate: 190

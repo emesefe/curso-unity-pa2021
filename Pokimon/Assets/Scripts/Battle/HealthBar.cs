@@ -46,11 +46,6 @@ public class HealthBar : MonoBehaviour
     
     #endregion
 
-    private void Start()
-    {
-        healthBar.transform.localScale = new Vector3(1, 1);
-    }
-
 
     /// <summary>
     /// Actualiza la barra de vida a partir del valor normlaizado de la misma

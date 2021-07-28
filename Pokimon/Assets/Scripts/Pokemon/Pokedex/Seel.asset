@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1cd9e4be626458fb1f5b49150e567b, type: 3}
   m_Name: Seel
   m_EditorClassIdentifier: 
-  id: 86
   name: Seel
   description: "Este Pok\xE9mon vive en icebergs. Nada en el mar y usa el cuerno
     de su cabeza para romper el hielo."
@@ -27,3 +26,4 @@ MonoBehaviour:
   spAttack: 45
   spDefense: 70
   speed: 45
+  catchRate: 190

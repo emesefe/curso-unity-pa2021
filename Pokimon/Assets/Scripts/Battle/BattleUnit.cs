@@ -11,14 +11,17 @@ public class BattleUnit : MonoBehaviour
     
     public PokemonBase _base;
     public int _level;
-    public bool isPlayer;
-    
+    public bool IsPlayer => isPlayer;
+
     public Pokemon Pokemon { get; set; }
+    public BattleHUD HUD => hud;
     
     #endregion
 
 
     #region VARIABLES PRIVADAS
+    
+    [SerializeField] private bool isPlayer;
     
     private Image pokemonImage;
     private Vector3 initialPosition;
@@ -27,12 +30,18 @@ public class BattleUnit : MonoBehaviour
     private float weakenedOffset = 150;
     private float attackOffset = 50;
     private int totalBlinksRecieveAttackAnimation = 2;
-    
+
     private float startAnimationDuration = 2;
     private float weakenedAnimationDuration = 2;
     private float attackAnimationDuration = 0.3f;
     private float recieveAttackAnimationDuration = 0.2f;
-    
+    private float capturedAnimationDuration = 0.75f;
+
+    private Vector3 finalCapturedScale = new Vector3(0.25f, 0.25f, 1);
+    private float capturedOffsetYPosition = 50;
+
+    [SerializeField] private BattleHUD hud;
+
     #endregion
 
 
@@ -43,12 +52,15 @@ public class BattleUnit : MonoBehaviour
         initialColor = pokemonImage.color;
     }
 
-    public void SetUpPokemon()
+    public void SetUpPokemon(Pokemon pokemon)
     {
-        Pokemon = new Pokemon(_base, _level);
+        Pokemon = pokemon;
 
         pokemonImage.sprite = (isPlayer ? Pokemon.Base.BackSprite : Pokemon.Base.FrontSprite);
         pokemonImage.color = initialColor;
+        
+        hud.SetPokemonData(pokemon);
+        
         PlayStartAnimation();
     }
 
@@ -84,5 +96,23 @@ public class BattleUnit : MonoBehaviour
             sequence.Append(pokemonImage.DOColor(Color.gray, recieveAttackAnimationDuration));
             sequence.Append(pokemonImage.DOColor(initialColor, recieveAttackAnimationDuration));
         }
+    }
+
+    public IEnumerator PlayCaputredAnimation()
+    {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(pokemonImage.DOFade(0, capturedAnimationDuration));
+        sequence.Join(transform.DOScale(finalCapturedScale, capturedAnimationDuration));
+        sequence.Join(transform.DOLocalMoveY(initialPosition.y + capturedOffsetYPosition, capturedAnimationDuration));
+        yield return sequence.WaitForCompletion();
+    }
+    
+    public IEnumerator PlayEscapeFromPokeballAnimation()
+    {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(pokemonImage.DOFade(1, capturedAnimationDuration));
+        sequence.Join(transform.DOScale(Vector3.one, capturedAnimationDuration));
+        sequence.Join(transform.DOLocalMoveY(initialPosition.y, capturedAnimationDuration));
+        yield return sequence.WaitForCompletion();
     }
 }

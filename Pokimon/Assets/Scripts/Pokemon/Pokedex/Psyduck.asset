@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1cd9e4be626458fb1f5b49150e567b, type: 3}
   m_Name: Psyduck
   m_EditorClassIdentifier: 
-  id: 54
   name: Psyduck
   description: Cuando su jaqueca empeora, usa poderes misteriosos. Sin embargo, nunca
     recuerda haberlos usado.
@@ -20,9 +19,11 @@ MonoBehaviour:
   backSprite: {fileID: 21300000, guid: 57aeca39925fb4a0d85db08fb45234c6, type: 3}
   type1: 18
   type2: 0
+  learnableMoves: []
   maxHP: 50
   attack: 52
   defense: 48
   spAttack: 65
   spDefense: 50
   speed: 55
+  catchRate: 190

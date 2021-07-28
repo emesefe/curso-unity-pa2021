@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1cd9e4be626458fb1f5b49150e567b, type: 3}
   m_Name: Jigglypuff
   m_EditorClassIdentifier: 
-  id: 39
   name: Jigglypuff
   description: Cuando mueve sus grandes ojos redondos, comienza a cantar una nana
     que duerme al enemigo.
@@ -37,3 +36,4 @@ MonoBehaviour:
   spAttack: 45
   spDefense: 25
   speed: 20
+  catchRate: 170

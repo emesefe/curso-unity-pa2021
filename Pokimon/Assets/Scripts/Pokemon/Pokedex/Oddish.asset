@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1cd9e4be626458fb1f5b49150e567b, type: 3}
   m_Name: Oddish
   m_EditorClassIdentifier: 
-  id: 43
   name: Oddish
   description: "Suele plantarse en el suelo Durante el d\xEDa. Por la noche se desplaza
     esparciendo semillas."
@@ -27,3 +26,4 @@ MonoBehaviour:
   spAttack: 75
   spDefense: 65
   speed: 30
+  catchRate: 255

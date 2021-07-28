@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1cd9e4be626458fb1f5b49150e567b, type: 3}
   m_Name: Abra
   m_EditorClassIdentifier: 
-  id: 63
   name: Abra
   description: "Duerme 18 horas al d\xEDa. Cuando est\xE1 despierto no se levanta
     ni para teletransportarse."
@@ -27,3 +26,4 @@ MonoBehaviour:
   spAttack: 105
   spDefense: 55
   speed: 90
+  catchRate: 200

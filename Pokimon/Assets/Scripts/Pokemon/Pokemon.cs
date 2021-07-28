@@ -2,7 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
+using Random = UnityEngine.Random;
+using System.Linq;
 
+
+[Serializable]
 public class Pokemon
 {
     #region VARIABLES PÚBLICAS
@@ -44,8 +49,8 @@ public class Pokemon
     
     #region VARIABLES PRIVADAS
 
-    private PokemonBase _base;
-    private int _level;
+    [SerializeField] private PokemonBase _base;
+    [SerializeField] private int _level;
     private List<Move> _moves;
     private int _hp;
 
@@ -54,10 +59,8 @@ public class Pokemon
     #endregion
         
     // Constructor
-    public Pokemon(PokemonBase pokemonBase, int pokemonLevel)
+    public void InitPokemon()
     {
-        _base = pokemonBase;
-        _level = pokemonLevel;
         _moves = new List<Move>();
 
         _hp = MaxHP;
@@ -115,10 +118,17 @@ public class Pokemon
         return damageDescription;
     }
 
-    public Move RandomMove()
+    public Move RandomMovement()
     {
-        int randId = Random.Range(0, Moves.Count);
-        return Moves[randId];
+        List<Move> movesWithPP = Moves.Where(m => m.PP > 0).ToList();
+        if (movesWithPP.Count > 0)
+        {
+            int randId = Random.Range(0, Moves.Count);
+            return movesWithPP[randId];
+        }
+        // No hay Pps en ningún ataque
+        // TODO: Implementar combate, ataque que hace daño al target y a ti mismo
+        return null;
     }
 }
 

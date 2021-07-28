@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class BattleDialogBox : MonoBehaviour
 {
-    public float charactersPerSecond = 10f;
     public bool isWriting;
+    
+    [SerializeField] private float charactersPerSecond = 10f;
     
     [SerializeField] private Text dialogText;
     [SerializeField] private GameObject actionSelector;
@@ -22,7 +23,7 @@ public class BattleDialogBox : MonoBehaviour
     [SerializeField] private Color selectedColor = Color.yellow;
     [SerializeField] private Color defaultColor = new Color(0.1960784f, 0.1960784f, 0.1960784f, 1);
 
-    [SerializeField] private float timeToWaitAfterText = 1;
+    private float timeToWaitAfterText = 1;
 
     private AudioSource _audioSource;
 
@@ -34,12 +35,15 @@ public class BattleDialogBox : MonoBehaviour
     public IEnumerator SetDialog(string message)
     {
         isWriting = true;
-        _audioSource.Play();
         dialogText.text = "";
         
         foreach (char character in message)
         {
             dialogText.text += character;
+            if (character != ' ')
+            {
+                _audioSource.Play();
+            }
             yield return new WaitForSeconds(1 / charactersPerSecond);
         }
         _audioSource.Stop();
@@ -84,6 +88,8 @@ public class BattleDialogBox : MonoBehaviour
 
         ppText.text = $"PP {move.PP} / {move.Base.PP}";
         typeText.text = move.Base.Type.ToString().ToUpper();
+
+        ppText.color = (move.PP <= 0 ? Color.red : defaultColor);
     }
 
     public void SetPokemonMovements(List<Move> moves)
