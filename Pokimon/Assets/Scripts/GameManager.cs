@@ -52,7 +52,9 @@ public class GameManager : MonoBehaviour
         // Tendré que comprobar la zona en la que he entrado
         Pokemon wildPokemon = FindObjectOfType<PokemonMapArea>().GetRandomWildPokemon();
         
-        battleManager.HandleStartBattle(playerParty, wildPokemon);
+        Pokemon wildPokemonCopy = new Pokemon(wildPokemon.Base, wildPokemon.Level);
+        
+        battleManager.HandleStartBattle(playerParty, wildPokemonCopy);
     }
     
     private void FinishPokemonBattle(bool playerHasWon)

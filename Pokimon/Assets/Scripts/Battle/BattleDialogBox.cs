@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class BattleDialogBox : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class BattleDialogBox : MonoBehaviour
 
     private AudioSource _audioSource;
 
+    public AudioClip[] clips;
+    
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -42,6 +45,7 @@ public class BattleDialogBox : MonoBehaviour
             dialogText.text += character;
             if (character != ' ')
             {
+                _audioSource.clip = clips[Random.Range(0, clips.Length)];
                 _audioSource.Play();
             }
             yield return new WaitForSeconds(1 / charactersPerSecond);

@@ -60,6 +60,7 @@ public class BattleUnit : MonoBehaviour
         pokemonImage.color = initialColor;
         
         hud.SetPokemonData(pokemon);
+        transform.localScale = Vector3.one;
         
         PlayStartAnimation();
     }

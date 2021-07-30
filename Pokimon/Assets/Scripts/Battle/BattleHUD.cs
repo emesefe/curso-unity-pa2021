@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class BattleHUD : MonoBehaviour
     public Text pokemonLevel;
     public Text pokemonHealth;
     public HealthBar healthBar;
+    public GameObject expBar;
 
     private Pokemon _pokemon;
 
@@ -18,8 +20,9 @@ public class BattleHUD : MonoBehaviour
         _pokemon = pokemon;
         
         pokemonName.text = pokemon.Base.Name;
-        pokemonLevel.text = String.Format("Lv {0}", pokemon.Level);
+        SetLevelText();
         healthBar.SetHP((float)_pokemon.HP / _pokemon.MaxHP);
+        SetExpBar();
         StartCoroutine(UpdatePokemonData(pokemon.HP));
     }
 
@@ -42,5 +45,44 @@ public class BattleHUD : MonoBehaviour
         }
         
         pokemonHealth.text = $"{_pokemon.HP} / {_pokemon.MaxHP}";
+    }
+
+    public IEnumerator SetExpBarSmooth(bool needsToResetBar = false)
+    {
+        if (expBar == null)
+        {
+            yield break;
+        }
+
+        if (needsToResetBar)
+        {
+            expBar.transform.localScale = new Vector3(0,1, 1);
+        }
+
+        yield return expBar.transform.DOScaleX(NormalizedExp(), 1).WaitForCompletion();
+    }
+
+    public void SetExpBar()
+    {
+        if (expBar == null)
+        {
+            return;
+        }
+        
+        expBar.transform.localScale = new Vector3(NormalizedExp(), 1, 1);
+    }
+
+    private float NormalizedExp()
+    {
+        float currentLevelExp = _pokemon.Base.GetNecessaryExperienceForLevel(_pokemon.Level);
+        float nextLevelExp = _pokemon.Base.GetNecessaryExperienceForLevel(_pokemon.Level + 1);
+
+        float normalizedExp = (_pokemon.Experience - currentLevelExp) / (nextLevelExp - currentLevelExp);
+        return Mathf.Clamp01(normalizedExp);
+    }
+
+    public void SetLevelText()
+    {
+        pokemonLevel.text = $"Lv {_pokemon.Level}";
     }
 }

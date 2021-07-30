@@ -39,11 +39,21 @@ public class Pokemon
     public int HP
     {
         get => _hp;
-        set => _hp = value;
+        set
+        {
+            _hp = value;
+            _hp = Mathf.FloorToInt(Mathf.Clamp(_hp, 0, MaxHP));
+        } 
     }
     
     public int Level { get => _level; }
     public PokemonBase Base { get => _base; }
+    
+    public int Experience
+    {
+        get => _experience;
+        set => _experience = value;
+    }
     
     #endregion
     
@@ -55,15 +65,26 @@ public class Pokemon
     private int _hp;
 
     private float criticalProbability = 8; // 8%
+
+    private int _experience;
     
     #endregion
         
     // Constructor
+    public Pokemon(PokemonBase pokemonBase, int pokemonLevel)
+    {
+        _base = pokemonBase;
+        _level = pokemonLevel;
+        
+        InitPokemon();
+    }
+
     public void InitPokemon()
     {
         _moves = new List<Move>();
 
         _hp = MaxHP;
+        _experience = _base.GetNecessaryExperienceForLevel(_level);
 
         foreach (LearnableMove learnableMove in _base.LearnableMoves)
         {
@@ -77,6 +98,24 @@ public class Pokemon
                 break;
             }
         }
+    }
+
+    public bool NeedsToLevelUp()
+    {
+        if (Experience > Base.GetNecessaryExperienceForLevel(_level + 1))
+        {
+            int currentMaxHP = MaxHP;
+            _level++;
+            HP += MaxHP - currentMaxHP;
+            return true;
+        }
+
+        return false;
+    }
+
+    public LearnableMove GetLearnableMoveAtCurrentLevel()
+    {
+        return Base.LearnableMoves.Where(lm => lm.Level == _level).FirstOrDefault();
     }
 
     public DamageDescription ReceiveDamage(Pokemon attacker, Move move)
@@ -129,6 +168,17 @@ public class Pokemon
         // No hay Pps en ningún ataque
         // TODO: Implementar combate, ataque que hace daño al target y a ti mismo
         return null;
+    }
+
+    public void LearnMove(LearnableMove learnableMove)
+    {
+        if (Moves.Count >= 4)
+        {
+            return;
+        }
+        
+        // La cantidad de movimientos es inferior a 4
+        Moves.Add(new Move(learnableMove.Move));
     }
 }
 

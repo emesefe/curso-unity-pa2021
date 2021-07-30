@@ -18,13 +18,23 @@ public enum BattleState
     FinishBattle
 }
 
+public enum BattleType
+{
+    WildPokemon,
+    Trainer,
+    Leader
+}
+
 public class BattleManager : MonoBehaviour
 {
     #region VARIABLES PUBLICAS
     
     public BattleState battleState;
+    public BattleType battleType;
     public event Action<bool> OnBattleFinished;
-    
+
+    public bool isLeader;
+
     #endregion
     
     #region VARIABLES PRIVADAS
@@ -37,9 +47,11 @@ public class BattleManager : MonoBehaviour
     private int currentSelectedAction;
     private int currentSelectedMovement;
     private int currentSelectedPokemon;
+    private int escapeAttempts;
     
     private float timeSinceLastClick;
-    [SerializeField] private float timeBetweenClicks = 1.0f;
+    private float timeBetweenClicks = 0.5f;
+    private float timeAfterText = 1;
 
     private PokemonParty playerParty;
     private Pokemon wildPokemon;
@@ -70,9 +82,17 @@ public class BattleManager : MonoBehaviour
 
     public void HandleStartBattle(PokemonParty playerParty, Pokemon wildPokemon)
     {
+        battleType = BattleType.WildPokemon;
+        escapeAttempts = 0;
         this.playerParty = playerParty;
         this.wildPokemon = wildPokemon;
         StartCoroutine(SetUpBattle());
+    }
+
+    public void HandleStartTrainerBattle()
+    {
+        battleType = (isLeader ? BattleType.Leader : BattleType.Trainer);
+        // TODO: Implemenetar la lógica
     }
 
     public void HandleUpdate()
@@ -154,10 +174,13 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// Jugador elige Objeto de la pantalla de inventario
     /// </summary>
-    private void OpenInventaryScreen()
+    private void OpenInventoryScreen()
     {
         // TODO: Implementar inventario y lógica de items
 
+        battleDialogBox.ToggleDialogText(true);
+        battleDialogBox.ToggleActions(false);
+        battleDialogBox.ToggleMovements(false);
         StartCoroutine(ThrowPokeball());
     }
 
@@ -258,12 +281,12 @@ public class BattleManager : MonoBehaviour
             }else if (currentSelectedAction == 2)
             {
                 // Seleccionamos Objetos
-                OpenInventaryScreen();
+                OpenInventoryScreen();
 
             }else if (currentSelectedAction == 3)
             {
                 // Seleccionamos Huir
-                BattleFinish(false);
+                StartCoroutine(TryToEscapeFromBattle());
             }
         }
     }
@@ -469,12 +492,7 @@ public class BattleManager : MonoBehaviour
         
         if (damageDescription.Weakened)
         {
-            string additionalText = (target.IsPlayer ? "¡Oh no! " : "");
-            yield return battleDialogBox.SetDialog($"{additionalText}{target.Pokemon.Base.Name} ha sido debilitado.");
-            target.PlayWeakenedAnimation();
-            yield return new WaitForSeconds(weakenedAnimationDuration);
-            
-            CheckForBattleFinish(target);
+            yield return HandlePokemonWeakened(target);
         }
     }
 
@@ -515,6 +533,13 @@ public class BattleManager : MonoBehaviour
     private IEnumerator ThrowPokeball()
     {
         battleState = BattleState.Busy;
+
+        if (battleType != BattleType.WildPokemon)
+        {
+            yield return battleDialogBox.SetDialog("No puedes capturar los Pokemon de otros entrenadores");
+            battleState = BattleState.LoseTurn;
+            yield break;
+        }
         
         battleDialogBox.ToggleActions(true);
         battleDialogBox.ToggleActions(false);
@@ -539,12 +564,22 @@ public class BattleManager : MonoBehaviour
             yield return new WaitForSeconds(timeBetweenPokeballShakes);
             yield return pokeballSprite.transform.DOPunchRotation(new Vector3(0, 0, shakeDegrees), pokeballShakeDuration).WaitForCompletion();
         }
-
+        
         if (numberOfShakes == 4)
         {
-            yield return battleDialogBox.SetDialog($"¡{enemyUnit.Pokemon.Base.Name} capturado!");
             yield return pokeballSprite.DOColor(Color.gray, pokemonCapturedDuration).WaitForCompletion();
+            yield return battleDialogBox.SetDialog($"¡{enemyUnit.Pokemon.Base.Name} capturado!");
+            yield return pokeballSprite.DOFade(0, pokemonCapturedDuration).WaitForCompletion();
             
+            if (playerParty.AddPokemonToParty(enemyUnit.Pokemon))
+            { 
+                yield return battleDialogBox.SetDialog($"{enemyUnit.Pokemon.Base.Name} se ha añadido a tu equipo.");
+            }
+            else
+            {
+                yield return battleDialogBox.SetDialog($"En algún momento {enemyUnit.Pokemon.Base.Name} se añadirá al PC.");
+            }
+
             Destroy(pokeballInst);
             BattleFinish(true);
         }
@@ -565,6 +600,95 @@ public class BattleManager : MonoBehaviour
             Destroy(pokeballInst);
             battleState = BattleState.LoseTurn;
         }
+    }
+    
+    private IEnumerator TryToEscapeFromBattle()
+    {
+        battleState = BattleState.Busy;
+
+        if (battleType != BattleType.WildPokemon)
+        {
+            yield return battleDialogBox.SetDialog("No puedes huir de combates contra entrenadores Pokemon");
+            battleState = BattleState.LoseTurn;
+            yield break;
+        }
+        
+        // Estamos en una batalla contra Pokemon salvaje
+        int playerSpeed = playerUnit.Pokemon.Speed;
+        int enemySpeed = enemyUnit.Pokemon.Speed;
+
+        if (playerSpeed >= enemySpeed)
+        {
+            yield return battleDialogBox.SetDialog("¡Has escapado con éxito!");
+            yield return new WaitForSeconds(timeAfterText);
+            OnBattleFinished(true);
+        }
+        else
+        {
+            int oddsEscape = (Mathf.FloorToInt(playerSpeed * 128 / enemySpeed) + 30 * escapeAttempts) % 256;
+            if (Random.Range(0, 256) < oddsEscape)
+            {
+                yield return battleDialogBox.SetDialog("¡Has escapado con éxito!");
+                yield return new WaitForSeconds(timeAfterText);
+                OnBattleFinished(true);
+            }
+            else
+            {
+                yield return battleDialogBox.SetDialog("No puedes escapar...");
+                battleState = BattleState.LoseTurn;
+            }
+        }
+    }
+
+    private IEnumerator HandlePokemonWeakened(BattleUnit weakendedUnit)
+    {
+        string additionalText = (weakendedUnit.IsPlayer ? "¡Oh no! " : "");
+        yield return battleDialogBox.SetDialog($"{additionalText}{weakendedUnit.Pokemon.Base.Name} ha sido debilitado.");
+        weakendedUnit.PlayWeakenedAnimation();
+        yield return new WaitForSeconds(weakenedAnimationDuration);
+
+        if (!weakendedUnit.IsPlayer)
+        {
+            // Ganar experiencia
+            int expBase = weakendedUnit.Pokemon.Base.ExpBase;
+            int level = weakendedUnit.Pokemon.Level;
+            float multiplier = (battleType == BattleType.WildPokemon ? 1 : 1.5f);
+
+            int wonExpInBattle = Mathf.FloorToInt(expBase * level * multiplier / 7);
+            playerUnit.Pokemon.Experience += wonExpInBattle;
+            yield return battleDialogBox.SetDialog(
+                $"{playerUnit.Pokemon.Base.Name} ha ganado {wonExpInBattle} puntos de experiencia.");
+            yield return playerUnit.HUD.SetExpBarSmooth();
+            yield return new WaitForSeconds(timeAfterText);
+            
+            // TODO: Chekear new level
+            while (playerUnit.Pokemon.NeedsToLevelUp())
+            {
+                playerUnit.HUD.SetLevelText();
+                yield return playerUnit.HUD.UpdatePokemonData(playerUnit.Pokemon.HP);
+                yield return battleDialogBox.SetDialog($"¡{playerUnit.Pokemon.Base.Name} sube de nivel!");
+                
+                // TODO: Intentar aprender nuevo movimiento
+                LearnableMove newLearnableMove = playerUnit.Pokemon.GetLearnableMoveAtCurrentLevel();
+
+                if (newLearnableMove != null)
+                {
+                    if (playerUnit.Pokemon.Moves.Count < 4)
+                    {
+                        // Podemos aprender el movimiento
+                    }
+                    else
+                    {
+                        // Debemos olvidar un movimiento
+                    }
+                }
+                
+                yield return playerUnit.HUD.SetExpBarSmooth(true);
+            }
+            yield return new WaitForSeconds(weakenedAnimationDuration);
+        }
+        
+        CheckForBattleFinish(weakendedUnit);
     }
     
     

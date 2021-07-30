@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,27 +11,6 @@ public class HealthBar : MonoBehaviour
     
     public GameObject healthBar;
 
-    public Color colorBar
-    {
-        get
-        {
-            float localScale = healthBar.transform.localScale.x;
-            if (localScale < dangerHPThreshold)
-            {
-                return dangerHPColor;
-                
-            }else  if (localScale < lowHPThreshold)
-            {
-                return lowHPColor;
-            }
-            else
-            {
-                return highHPColor;
-            }
-        }
-            
-    }
-    
     #endregion
 
     #region VARIABLES PRIVADAS
@@ -46,7 +26,23 @@ public class HealthBar : MonoBehaviour
     
     #endregion
 
+    public Color ColorBar(float finalScale)
+    {
+        if (finalScale < dangerHPThreshold)
+        {
+            return dangerHPColor;
+                
+        }else  if (finalScale < lowHPThreshold)
+        {
+            return lowHPColor;
+        }
+        else
+        {
+            return highHPColor;
+        }
 
+    }
+    
     /// <summary>
     /// Actualiza la barra de vida a partir del valor normlaizado de la misma
     /// </summary>
@@ -54,7 +50,7 @@ public class HealthBar : MonoBehaviour
     public void SetHP(float normalizedValue)
     {
         healthBar.transform.localScale = new Vector3(normalizedValue, 1f); 
-        healthBar.GetComponent<Image>().color = colorBar;
+        healthBar.GetComponent<Image>().color = ColorBar(normalizedValue);
     }
 
     /// <summary>
@@ -64,19 +60,21 @@ public class HealthBar : MonoBehaviour
     /// <param name="normalizedValue">Valor de la vida normalizado entre 0 y 1</param>
     public IEnumerator SetSmoothHP(float normalizedValue)
     {
-        float currentScale = healthBar.transform.localScale.x;
+        /*float currentScale = healthBar.transform.localScale.x;
         float updateQuantity = currentScale - normalizedValue;
 
         while (currentScale - normalizedValue > Mathf.Epsilon)
         {
             currentScale -= updateQuantity * Time.deltaTime;
             healthBar.transform.localScale = new Vector3(currentScale, 1);
-            healthBar.GetComponent<Image>().color = colorBar;
+            
 
             yield return null;
-        }
+        }*/
 
-
-        healthBar.transform.localScale = new Vector3(normalizedValue, 1);
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(healthBar.transform.DOScaleX(normalizedValue, 1));
+        sequence.Join(healthBar.GetComponent<Image>().DOColor(ColorBar(normalizedValue), 1));
+        yield return sequence.WaitForCompletion();
     }
 }

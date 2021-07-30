@@ -17,7 +17,14 @@ public class PartyMemberHUD : MonoBehaviour
 
         nameText.text = pokemon.Base.Name;
         levelText.text = $"Lv {pokemon.Level}";
-        typeText.text = pokemon.Base.Type1.ToString().ToUpper();
+        if (pokemon.Base.Type2 == PokemonType.None)
+        {
+            typeText.text = pokemon.Base.Type1.ToString().ToUpper();
+        }
+        else
+        { 
+            typeText.text = $"{pokemon.Base.Type1.ToString().ToUpper()}\t {pokemon.Base.Type2.ToString().ToUpper()}";
+        }
         hpText.text = $"{pokemon.HP} / {pokemon.MaxHP}";
         
         healtBar.SetHP((float) pokemon.HP / pokemon.MaxHP);

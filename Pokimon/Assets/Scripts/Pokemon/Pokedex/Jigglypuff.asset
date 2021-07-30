@@ -17,8 +17,8 @@ MonoBehaviour:
     que duerme al enemigo.
   frontSprite: {fileID: 21300000, guid: 2857667c697164e4eb27461a9eec718e, type: 3}
   backSprite: {fileID: 21300000, guid: dd496d3075eed4892b0d702b3e03e5d2, type: 3}
-  type1: 13
-  type2: 5
+  type1: 5
+  type2: 13
   learnableMoves:
   - move: {fileID: 11400000, guid: e59fe8c7f7cd6470ab517f37e45192ee, type: 2}
     level: 1

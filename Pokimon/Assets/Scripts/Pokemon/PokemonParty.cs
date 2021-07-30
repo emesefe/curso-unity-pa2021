@@ -9,6 +9,7 @@ public class PokemonParty : MonoBehaviour
     public List<Pokemon> Pokemons { get => pokemons;}
     
     [SerializeField] private List<Pokemon> pokemons;
+    private const int MAX_NUM_POKEMON_IN_PARTY = 6;
 
     private void Start()
     {
@@ -38,5 +39,22 @@ public class PokemonParty : MonoBehaviour
         }
 
         return -1;
+    }
+
+    /// <summary>
+    /// Añade un nuevo Pokemon a la Party
+    /// </summary>
+    /// <param name="pokemon">Pokemon a añadir</param>
+    public bool AddPokemonToParty(Pokemon pokemon)
+    {
+        if (pokemons.Count < MAX_NUM_POKEMON_IN_PARTY)
+        {
+            pokemons.Add(pokemon);
+            return true;
+        }else
+        {
+            // TODO: Añadir la funcionalidad de enviarlo al PC
+            return false;
+        }
     }
 }
