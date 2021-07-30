@@ -11,6 +11,8 @@ public enum GameState
 }
 public class GameManager : MonoBehaviour
 {
+    public AudioClip worldClip, battleClip;
+    
     [SerializeField] private PlayerController playerController;
     [SerializeField] private BattleManager battleManager;
     [SerializeField] private Camera worldMainCamera;
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         _gameState = GameState.PlayerMove;
+        AudioManager.SharedInstance.PlayMusic(worldClip);
     }
 
     private void Start()
@@ -42,6 +45,8 @@ public class GameManager : MonoBehaviour
 
     private void StartPokemonBattle()
     {
+        AudioManager.SharedInstance.PlayMusic(battleClip);
+        
         _gameState = GameState.Battle;
         battleManager.gameObject.SetActive(true);
         worldMainCamera.gameObject.SetActive(false);
@@ -59,6 +64,8 @@ public class GameManager : MonoBehaviour
     
     private void FinishPokemonBattle(bool playerHasWon)
     {
+        AudioManager.SharedInstance.PlayMusic(worldClip);
+        
         _gameState = GameState.PlayerMove;
         battleManager.gameObject.SetActive(false);
         worldMainCamera.gameObject.SetActive(true);

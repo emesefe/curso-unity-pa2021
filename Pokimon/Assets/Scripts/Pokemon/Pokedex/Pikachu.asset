@@ -38,4 +38,4 @@ MonoBehaviour:
   speed: 90
   catchRate: 190
   expBase: 1000
-  growthRate: 0
+  growthRate: 3

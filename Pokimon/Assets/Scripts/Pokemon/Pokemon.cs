@@ -93,7 +93,7 @@ public class Pokemon
                 _moves.Add(new Move(learnableMove.Move));
             }
 
-            if (_moves.Count >= 4)
+            if (_moves.Count >= PokemonBase.NUMBER_OF_LEARNABLE_MOVES)
             {
                 break;
             }
@@ -172,7 +172,7 @@ public class Pokemon
 
     public void LearnMove(LearnableMove learnableMove)
     {
-        if (Moves.Count >= 4)
+        if (Moves.Count >= PokemonBase.NUMBER_OF_LEARNABLE_MOVES)
         {
             return;
         }

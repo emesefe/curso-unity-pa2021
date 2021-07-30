@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 public class BattleDialogBox : MonoBehaviour
 {
     public bool isWriting;
+    public AudioClip[] characterClips;
     
     [SerializeField] private float charactersPerSecond = 10f;
     
@@ -26,15 +27,6 @@ public class BattleDialogBox : MonoBehaviour
 
     private float timeToWaitAfterText = 1;
 
-    private AudioSource _audioSource;
-
-    public AudioClip[] clips;
-    
-    private void Awake()
-    {
-        _audioSource = GetComponent<AudioSource>();
-    }
-
     public IEnumerator SetDialog(string message)
     {
         isWriting = true;
@@ -45,12 +37,11 @@ public class BattleDialogBox : MonoBehaviour
             dialogText.text += character;
             if (character != ' ')
             {
-                _audioSource.clip = clips[Random.Range(0, clips.Length)];
-                _audioSource.Play();
+                AudioManager.SharedInstance.RandomSoundEffect(characterClips);
             }
             yield return new WaitForSeconds(1 / charactersPerSecond);
         }
-        _audioSource.Stop();
+        
         yield return new WaitForSeconds(timeToWaitAfterText);
         isWriting = false;
     }

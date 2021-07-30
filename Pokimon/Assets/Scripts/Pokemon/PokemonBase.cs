@@ -23,9 +23,11 @@ public class PokemonBase : ScriptableObject
     public int SPDefense { get => spDefense; }
     public int Speed { get => speed; }
     public List<LearnableMove> LearnableMoves { get => learnableMoves; }
+    public static int NUMBER_OF_LEARNABLE_MOVES { get; } = 4;
     public int CatchRate => catchRate;
     public int ExpBase => expBase;
     public GrowthRate GrowthRate => growthRate;
+    
     
     #endregion
 
