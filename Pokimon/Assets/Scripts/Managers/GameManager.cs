@@ -9,6 +9,8 @@ public enum GameState
     PlayerMove,
     Battle
 }
+
+[RequireComponent(typeof(ColorManager))]
 public class GameManager : MonoBehaviour
 {
     public AudioClip worldClip, battleClip;

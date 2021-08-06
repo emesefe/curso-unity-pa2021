@@ -21,10 +21,7 @@ public class BattleDialogBox : MonoBehaviour
     [SerializeField] private List<Text> movementTexts;
     [SerializeField] private Text ppText;
     [SerializeField] private Text typeText;
-
-    [SerializeField] private Color selectedColor = Color.yellow;
-    [SerializeField] private Color defaultColor = new Color(0.1960784f, 0.1960784f, 0.1960784f, 1);
-
+    
     private float timeToWaitAfterText = 1;
 
     public IEnumerator SetDialog(string message)
@@ -70,7 +67,7 @@ public class BattleDialogBox : MonoBehaviour
     {
         for (int i = 0; i < actionTexts.Count; i++)
         {
-            actionTexts[i].color = (i == selectedAction ? selectedColor : defaultColor);
+            actionTexts[i].color = (i == selectedAction ? ColorManager.SharedInstance.selectedColor : ColorManager.SharedInstance.defaultColor);
         }
     }
     
@@ -78,13 +75,13 @@ public class BattleDialogBox : MonoBehaviour
     {
         for (int i = 0; i < movementTexts.Count; i++)
         {
-            movementTexts[i].color = (i == selectedMovement ? selectedColor : defaultColor);
+            movementTexts[i].color = (i == selectedMovement ? ColorManager.SharedInstance.selectedColor : ColorManager.SharedInstance.defaultColor);
         }
 
         ppText.text = $"PP {move.PP} / {move.Base.PP}";
         typeText.text = move.Base.Type.ToString().ToUpper();
 
-        ppText.color = (move.PP <= 0 ? Color.red : defaultColor);
+        ppText.color = ColorManager.SharedInstance.ColorRangePP((float) move.PP / move.Base.PP);
     }
 
     public void SetPokemonMovements(List<Move> moves)

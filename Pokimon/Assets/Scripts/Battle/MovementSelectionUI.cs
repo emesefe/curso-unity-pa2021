@@ -10,9 +10,6 @@ public class MovementSelectionUI : MonoBehaviour
     [SerializeField] private Text[] movementTexts;
     private int currentSelectedMovement = 0;
 
-    [SerializeField] private Color selectedColor;
-    [SerializeField] private Color defaultColor;
-
     public void SetMovements(List<MoveBase> pokemonMoves, MoveBase newMove)
     {
         currentSelectedMovement = 0;
@@ -46,7 +43,7 @@ public class MovementSelectionUI : MonoBehaviour
     {
         for (int i = 0; i <= PokemonBase.NUMBER_OF_LEARNABLE_MOVES; i++)
         {
-            movementTexts[i].color = (i == selectedMovement ? selectedColor : defaultColor);
+            movementTexts[i].color = (i == selectedMovement ? ColorManager.SharedInstance.selectedColor : ColorManager.SharedInstance.defaultColor);
         }
     }
 }

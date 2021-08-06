@@ -17,32 +17,8 @@ public class HealthBar : MonoBehaviour
 
     private Image healthBarImage;
 
-    [SerializeField] private Color highHPColor;
-    [SerializeField] private Color lowHPColor;
-    [SerializeField] private Color dangerHPColor;
-
-    private float lowHPThreshold = 0.5f;
-    private float dangerHPThreshold = 0.15f;
-    
     #endregion
 
-    public Color ColorBar(float finalScale)
-    {
-        if (finalScale < dangerHPThreshold)
-        {
-            return dangerHPColor;
-                
-        }else  if (finalScale < lowHPThreshold)
-        {
-            return lowHPColor;
-        }
-        else
-        {
-            return highHPColor;
-        }
-
-    }
-    
     /// <summary>
     /// Actualiza la barra de vida a partir del valor normlaizado de la misma
     /// </summary>
@@ -50,7 +26,7 @@ public class HealthBar : MonoBehaviour
     public void SetHP(float normalizedValue)
     {
         healthBar.transform.localScale = new Vector3(normalizedValue, 1f); 
-        healthBar.GetComponent<Image>().color = ColorBar(normalizedValue);
+        healthBar.GetComponent<Image>().color = ColorManager.SharedInstance.ColorRange(normalizedValue);
     }
 
     /// <summary>
@@ -74,7 +50,7 @@ public class HealthBar : MonoBehaviour
 
         Sequence sequence = DOTween.Sequence();
         sequence.Append(healthBar.transform.DOScaleX(normalizedValue, 1));
-        sequence.Join(healthBar.GetComponent<Image>().DOColor(ColorBar(normalizedValue), 1));
+        sequence.Join(healthBar.GetComponent<Image>().DOColor(ColorManager.SharedInstance.ColorRange(normalizedValue), 1));
         yield return sequence.WaitForCompletion();
     }
 }
