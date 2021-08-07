@@ -19,8 +19,8 @@ public class PokemonBase : ScriptableObject
     public int MaxHP { get => maxHP; }
     public int Attack { get => attack; }
     public int Defense { get => defense; }
-    public int SPAttack { get => spAttack; }
-    public int SPDefense { get => spDefense; }
+    public int SpAttack { get => spAttack; }
+    public int SpDefense { get => spDefense; }
     public int Speed { get => speed; }
     public List<LearnableMove> LearnableMoves { get => learnableMoves; }
     public static int NUMBER_OF_LEARNABLE_MOVES { get; } = 4;
@@ -142,7 +142,14 @@ public enum GrowthRate
     Fluctuating
 }
 
-
+public enum Stat
+{
+    Attack,
+    Defense,
+    SpAttack, 
+    SpDefense,
+    Speed
+}
 
 public class TypeMatrix
 {

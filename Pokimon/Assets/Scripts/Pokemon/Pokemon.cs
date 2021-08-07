@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
 using System.Linq;
+using UnityEditorInternal;
 
 
 [Serializable]
@@ -15,19 +16,19 @@ public class Pokemon
     public int MaxHP { get => Mathf.FloorToInt((_base.MaxHP * _level) / 20f) + 10; }
     
     // Ataque base por nivel
-    public int Attack { get => Mathf.FloorToInt((_base.Attack * _level) / 100f) + 1; }
+    public int Attack { get => GetStat(Stat.Attack); }
     
     // Defensa base por nivel
-    public int Defense { get => Mathf.FloorToInt((_base.Defense * _level) / 100f) + 1; }
+    public int Defense { get => GetStat(Stat.Defense); }
     
     // Ataque especial base por nivel
-    public int SPAttack { get => Mathf.FloorToInt((_base.SPAttack * _level) / 100f) + 1; }
+    public int SpAttack { get => GetStat(Stat.SpAttack); }
     
     // Defensa especial base por nivel
-    public int SPDefense { get => Mathf.FloorToInt((_base.SPDefense * _level) / 100f) + 1; }
+    public int SpDefense { get => GetStat(Stat.SpDefense); }
     
     // Velocidad base por nivel
-    public int Speed { get => Mathf.FloorToInt((_base.Speed * _level) / 100f) + 1; }
+    public int Speed { get => GetStat(Stat.Speed); }
 
     public List<Move> Moves
     {
@@ -54,7 +55,9 @@ public class Pokemon
         get => _experience;
         set => _experience = value;
     }
-    
+
+    public Dictionary<Stat, int> Stats { get; private set; }
+
     #endregion
     
     #region VARIABLES PRIVADAS
@@ -67,7 +70,7 @@ public class Pokemon
     private float criticalProbability = 8; // 8%
 
     private int _experience;
-    
+
     #endregion
         
     // Constructor
@@ -98,6 +101,8 @@ public class Pokemon
                 break;
             }
         }
+        
+        CalculateStats();
     }
 
     public bool NeedsToLevelUp()
@@ -136,8 +141,8 @@ public class Pokemon
             Weakened = false
         };
 
-        float attack = (move.Base.IsSpecialMove ? attacker.SPAttack : attacker.Attack);
-        float defense = (move.Base.IsSpecialMove ? SPDefense : Defense);
+        float attack = (move.Base.IsSpecialMove ? attacker.SpAttack : attacker.Attack);
+        float defense = (move.Base.IsSpecialMove ? SpDefense : Defense);
 
         float modifiers = Random.Range(0.85f, 1.0f) * type1 * type2 * critical;
         
@@ -179,6 +184,23 @@ public class Pokemon
         
         // La cantidad de movimientos es inferior a 4
         Moves.Add(new Move(learnableMove.Move));
+    }
+    
+    private void CalculateStats()
+    {
+        Stats = new Dictionary<Stat, int>();
+        Stats.Add(Stat.Attack, Mathf.FloorToInt((_base.Attack * _level) / 100f) + 1);
+        Stats.Add(Stat.Defense, Mathf.FloorToInt((_base.Defense * _level) / 100f) + 1);
+        Stats.Add(Stat.SpAttack, Mathf.FloorToInt((_base.SpAttack * _level) / 100f) + 1);
+        Stats.Add(Stat.SpDefense, Mathf.FloorToInt((_base.SpDefense * _level) / 100f) + 1);
+        Stats.Add(Stat.Speed, Mathf.FloorToInt((_base.Speed * _level) / 100f) + 1);
+    }
+
+    private int GetStat(Stat stat)
+    {
+        int statValue = Stats[stat];
+        // TODO: Aplicar modificadores de estado
+        return statValue;
     }
 }
 
