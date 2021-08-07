@@ -21,6 +21,7 @@ public class BattleDialogBox : MonoBehaviour
     [SerializeField] private List<Text> movementTexts;
     [SerializeField] private Text ppText;
     [SerializeField] private Text typeText;
+    [SerializeField] private Image typeBackgroundImage;
     
     private float timeToWaitAfterText = 1;
 
@@ -82,6 +83,7 @@ public class BattleDialogBox : MonoBehaviour
         typeText.text = move.Base.Type.ToString().ToUpper();
 
         ppText.color = ColorManager.SharedInstance.ColorRangePP((float) move.PP / move.Base.PP);
+        typeBackgroundImage.color = ColorManager.ColorType.GetColorFromType(move.Base.Type);
     }
 
     public void SetPokemonMovements(List<Move> moves)

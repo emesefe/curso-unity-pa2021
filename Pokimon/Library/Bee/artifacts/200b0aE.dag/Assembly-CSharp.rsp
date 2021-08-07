@@ -354,6 +354,7 @@
 "Assets/Scripts/Managers/AudioManager.cs"
 "Assets/Scripts/Managers/ColorManager.cs"
 "Assets/Scripts/Managers/GameManager.cs"
+"Assets/Scripts/Managers/MySceneManager.cs"
 "Assets/Scripts/Moves/Move.cs"
 "Assets/Scripts/Moves/MoveBase.cs"
 "Assets/Scripts/Player/PlayerController.cs"
