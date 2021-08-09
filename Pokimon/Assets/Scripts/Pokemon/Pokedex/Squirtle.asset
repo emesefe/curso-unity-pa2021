@@ -37,5 +37,5 @@ MonoBehaviour:
   spDefense: 64
   speed: 43
   catchRate: 45
-  expBase: 1000
+  expBase: 63
   growthRate: 3

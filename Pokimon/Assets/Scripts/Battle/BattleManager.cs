@@ -433,16 +433,7 @@ public class BattleManager : MonoBehaviour
         battleDialogBox.ToggleMovements(false);
         
         yield  return battleDialogBox.SetDialog($"Un {enemyUnit.Pokemon.Base.Name} salvaje apareció.");
-        
-        if (enemyUnit.Pokemon.Speed > playerUnit.Pokemon.Speed)
-        {
-            yield return battleDialogBox.SetDialog("El enemigo ataca primero.");
-            yield return PerformEnemyMovement();
-        }
-        else
-        {
-            PlayerActionSelection();
-        }
+        yield return ChooseFirstTurn(true);
     }
     
     private IEnumerator PerformPlayerMovement()
@@ -487,31 +478,11 @@ public class BattleManager : MonoBehaviour
         move.PP--;
         yield return battleDialogBox.SetDialog($"{attacker.Pokemon.Base.Name} ha usado {move.Base.Name}.");
 
-        AudioManager.SharedInstance.PlaySound(attackClip);
-        attacker.PlayAttackAnimation();
-        yield return new WaitForSeconds(attackAnimationDuration);
-        AudioManager.SharedInstance.PlaySound(damageClip);
-        target.PlayReceiveAttackAnimation();
+        yield return RunMoveAnims(attacker, target);
 
         if (move.Base.MoveType == MoveType.Stats)
         {
-            // Movimiento de tipo Cambio de Estado
-            foreach (StatBoosting effect in move.Base.Effects.Boostings)
-            {
-                if (effect.target == MoveTarget.Self)
-                {
-                    // Attacker recibe el Boosting
-                    attacker.Pokemon.ApplyBoost(effect);
-                }
-                else
-                {
-                    // Target recibe el Boosting
-                    target.Pokemon.ApplyBoost(effect);
-                }
-            }
-
-            yield return ShowStatsMessages(attacker.Pokemon);
-            yield return ShowStatsMessages(target.Pokemon);
+            yield return RunMoveStats(attacker.Pokemon, target.Pokemon, move);
         }
         else
         {
@@ -540,9 +511,10 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator SwitchPokemon(Pokemon newPokemon)
     {
-        
+        bool currentPokemonWeakened = true;
         if (playerUnit.Pokemon.HP > 0)
         {
+            currentPokemonWeakened = false;
             yield return battleDialogBox.SetDialog($"¡Vuelve, {playerUnit.Pokemon.Base.Name}!");
             playerUnit.PlayWeakenedAnimation();
             yield return new WaitForSeconds(weakenedAnimationDuration);
@@ -552,7 +524,15 @@ public class BattleManager : MonoBehaviour
         battleDialogBox.SetPokemonMovements(newPokemon.Moves);
         
         yield return battleDialogBox.SetDialog($"¡Adelante, {playerUnit.Pokemon.Base.Name}!");
-        StartCoroutine(PerformEnemyMovement());
+
+        if (currentPokemonWeakened)
+        {
+            yield return ChooseFirstTurn();
+        }
+        else
+        {
+            yield return PerformEnemyMovement();
+        }
     }
 
     private IEnumerator ShowDamageDescription(DamageDescription damageDescription)
@@ -708,8 +688,8 @@ public class BattleManager : MonoBehaviour
             {
                 playerUnit.HUD.SetLevelText();
                 yield return playerUnit.HUD.UpdatePokemonData(playerUnit.Pokemon.HP);
-                AudioManager.SharedInstance.PlaySound(levelUpClip);
                 yield return battleDialogBox.SetDialog($"¡{playerUnit.Pokemon.Base.Name} sube de nivel!");
+                AudioManager.SharedInstance.PlaySound(levelUpClip);
                 
                 // Comprobamos si el Pokemon debe aprender nuevo movimiento
                 LearnableMove newLearnableMove = playerUnit.Pokemon.GetLearnableMoveAtCurrentLevel();
@@ -781,6 +761,54 @@ public class BattleManager : MonoBehaviour
         battleState = BattleState.FinishBattle;
     }
     
+    private IEnumerator ChooseFirstTurn(bool showFirstMessage = false)
+    {
+        if (enemyUnit.Pokemon.Speed > playerUnit.Pokemon.Speed)
+        {
+            // Enemigo se mueve primero
+            if (showFirstMessage)
+            {
+                yield return battleDialogBox.SetDialog("El enemigo ataca primero.");
+            }
+            yield return PerformEnemyMovement();
+        }
+        else
+        {
+            // Player se mueve primero
+            PlayerActionSelection();
+        }
+    }
+
+    private IEnumerator RunMoveStats(Pokemon attacker, Pokemon target, Move move)
+    {
+        // Movimiento de tipo Cambio de Estado
+        foreach (StatBoosting effect in move.Base.Effects.Boostings)
+        {
+            if (effect.target == MoveTarget.Self)
+            {
+                // Attacker recibe el Boosting
+                attacker.ApplyBoost(effect);
+            }
+            else
+            {
+                // Target recibe el Boosting
+                target.ApplyBoost(effect);
+            }
+        }
+
+        yield return ShowStatsMessages(attacker);
+        yield return ShowStatsMessages(target);
+    }
+
+    private IEnumerator RunMoveAnims(BattleUnit attacker, BattleUnit target)
+    {
+        AudioManager.SharedInstance.PlaySound(attackClip);
+        attacker.PlayAttackAnimation();
+        yield return new WaitForSeconds(attackAnimationDuration);
+        AudioManager.SharedInstance.PlaySound(damageClip);
+        target.PlayReceiveAttackAnimation();
+        yield return new WaitForSeconds(attackAnimationDuration);
+    }
     
     #endregion
     

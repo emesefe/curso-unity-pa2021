@@ -19,3 +19,7 @@ MonoBehaviour:
   pp: 15
   power: 0
   accuracy: 100
+  moveType: 2
+  effects:
+    boostings: []
+  target: 0

@@ -243,7 +243,7 @@ public class Pokemon
             {Stat.Attack, 0},
             {Stat.Defense, 0},
             {Stat.SpAttack, 0},
-            {Stat.SpAttack, 0},
+            {Stat.SpDefense, 0},
             {Stat.Speed, 0}
         };
     }
