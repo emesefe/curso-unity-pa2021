@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,35 +6,61 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Move", menuName = "Pokemon / Nuevo Movimiento")]
 public class MoveBase : ScriptableObject
 {
-   public string Name { get => name; }
-   public string Description { get => description; }
-   public PokemonType Type { get => type; }
-   public int PP { get => pp; }
-   public int Power { get => power; }
-   public int Accuracy { get => accuracy; }
+    #region VARIABLES PUBLICAS
+    
+    public string Name { get => name; }
+    public string Description { get => description; }
+    public PokemonType Type { get => type; }
+    public int PP { get => pp; }
+    public int Power { get => power; }
+    public int Accuracy { get => accuracy; }
+    public MoveType MoveType { get => moveType; }
+    public MoveStatEffect Effects { get => effects; }
+    public MoveTarget Target { get => target; }
+    public bool IsSpecialMove =>  moveType == MoveType.Special;
+    
+    #endregion
+    
+    #region VARIABLES PRIVADAS
+    
+    [SerializeField] private string name;
+    [TextArea] [SerializeField] private string description;
+    [SerializeField] private PokemonType type;
+    [SerializeField] private int pp;
+    [SerializeField] private int power;
+    [SerializeField] private int accuracy;
+    [SerializeField] private MoveType moveType;
+    [SerializeField] private MoveStatEffect effects;
+    [SerializeField] private MoveTarget target;
+    
+    #endregion
+}
 
-   public bool IsSpecialMove
-   {
-      get
-      {
-         if (type == PokemonType.Fire || type == PokemonType.Water ||
-             type == PokemonType.Grass || type == PokemonType.Ice ||
-             type == PokemonType.Electric || type == PokemonType.Dragon||
-             type == PokemonType.Dark || type == PokemonType.Psychic)
-         {
-             return true; 
-         }
-         
-         return false;
-      }
-   }
-   
+public enum MoveType
+{
+    Physical,
+    Special, 
+    Stats
+}
 
-   [SerializeField] private string name;
-   [TextArea] [SerializeField] private string description;
-   [SerializeField] private PokemonType type;
-   [SerializeField] private int pp;
-   [SerializeField] private int power;
-   [SerializeField] private int accuracy;
-   
+[Serializable]
+public class MoveStatEffect
+{
+    public List<StatBoosting> Boostings => boostings;
+    
+    [SerializeField] private List<StatBoosting> boostings;
+}
+
+[Serializable]
+public class StatBoosting
+{
+    public Stat stat;
+    public int boost;
+    public MoveTarget target;
+}
+
+public enum MoveTarget
+{
+    Self,
+    Other
 }

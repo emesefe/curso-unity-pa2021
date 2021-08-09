@@ -57,6 +57,9 @@ public class Pokemon
     }
 
     public Dictionary<Stat, int> Stats { get; private set; }
+    public Dictionary<Stat, int> StatsBoosted { get; private set; }
+    
+    public Queue<string> StatsChangeMessages { get; private set; }
 
     #endregion
     
@@ -103,6 +106,7 @@ public class Pokemon
         }
         
         CalculateStats();
+        ResetBoostings();
     }
 
     public bool NeedsToLevelUp()
@@ -199,8 +203,54 @@ public class Pokemon
     private int GetStat(Stat stat)
     {
         int statValue = Stats[stat];
-        // TODO: Aplicar modificadores de estado
+        int boost = StatsBoosted[stat];
+
+        // Niveles de mejora en Pokemon: 1 -> 1.5 -> 2 -> 2.5 -> ... -> 4
+        float multiplier = 1.0f + Mathf.Abs(boost) / 2.0f;
+        statValue = Mathf.FloorToInt(statValue * (boost >= 0 ? multiplier : (1 / multiplier)));
+        
         return statValue;
+    }
+
+    public void ApplyBoost(StatBoosting boost)
+    {
+        Stat stat = boost.stat;
+        int value = boost.boost;
+            
+        StatsBoosted[stat] = Mathf.Clamp(StatsBoosted[stat] + value, -6, 6);
+        if (value > 0)
+        {
+            // La estadística del pokemon ha incrementado
+            StatsChangeMessages.Enqueue($"{Base.Name} ha incrementado su {stat}.");
+        }
+        else if (value < 0)
+        {
+            // La estadística del pokemon ha decrementado
+            StatsChangeMessages.Enqueue($"{Base.Name} ha reducido su {stat}.");
+        }
+        else
+        {
+            // value = 0
+            StatsChangeMessages.Enqueue($"{Base.Name} no nota ningún efecto.");
+        }
+    }
+
+    private void ResetBoostings()
+    {
+        StatsChangeMessages = new Queue<string>();
+        StatsBoosted = new Dictionary<Stat, int>()
+        {
+            {Stat.Attack, 0},
+            {Stat.Defense, 0},
+            {Stat.SpAttack, 0},
+            {Stat.SpAttack, 0},
+            {Stat.Speed, 0}
+        };
+    }
+
+    public void OnBattleFinish()
+    {
+        ResetBoostings();
     }
 }
 

@@ -144,6 +144,7 @@ public class BattleManager : MonoBehaviour
     {
         AudioManager.SharedInstance.PlaySound(battleFinishClip);
         battleState = BattleState.FinishBattle;
+        playerParty.Pokemons.ForEach(p => p.OnBattleFinish());
         OnBattleFinished(playerHasWon);
     }
 
@@ -485,23 +486,55 @@ public class BattleManager : MonoBehaviour
     {
         move.PP--;
         yield return battleDialogBox.SetDialog($"{attacker.Pokemon.Base.Name} ha usado {move.Base.Name}.");
-        
-        int oldHPValue = target.Pokemon.HP;
-        
+
         AudioManager.SharedInstance.PlaySound(attackClip);
         attacker.PlayAttackAnimation();
         yield return new WaitForSeconds(attackAnimationDuration);
-        
         AudioManager.SharedInstance.PlaySound(damageClip);
         target.PlayReceiveAttackAnimation();
-        DamageDescription damageDescription = target.Pokemon.ReceiveDamage(attacker.Pokemon, move);
-        yield return target.HUD.UpdatePokemonData(oldHPValue);
 
-        yield return ShowDamageDescription(damageDescription);
+        if (move.Base.MoveType == MoveType.Stats)
+        {
+            // Movimiento de tipo Cambio de Estado
+            foreach (StatBoosting effect in move.Base.Effects.Boostings)
+            {
+                if (effect.target == MoveTarget.Self)
+                {
+                    // Attacker recibe el Boosting
+                    attacker.Pokemon.ApplyBoost(effect);
+                }
+                else
+                {
+                    // Target recibe el Boosting
+                    target.Pokemon.ApplyBoost(effect);
+                }
+            }
+
+            yield return ShowStatsMessages(attacker.Pokemon);
+            yield return ShowStatsMessages(target.Pokemon);
+        }
+        else
+        {
+            int oldHPValue = target.Pokemon.HP;
+            DamageDescription damageDescription = target.Pokemon.ReceiveDamage(attacker.Pokemon, move);
+            yield return target.HUD.UpdatePokemonData(oldHPValue);
+
+            yield return ShowDamageDescription(damageDescription); 
+        }
         
-        if (damageDescription.Weakened)
+        if (target.Pokemon.HP <= 0)
         {
             yield return HandlePokemonWeakened(target);
+        }
+    }
+
+    private IEnumerator ShowStatsMessages(Pokemon pokemon)
+    {
+        while (pokemon.StatsChangeMessages.Count > 0)
+        { 
+            string message = pokemon.StatsChangeMessages.Dequeue();
+            yield return battleDialogBox.SetDialog(message);
+            yield return new WaitForSeconds(timeAfterText);
         }
     }
 
