@@ -23,7 +23,6 @@
 -a="/Users/mariasantos/Developer/Unity/Palma Activa 2021/curso-unity-pa2021/Pokimon/Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/Newtonsoft.Json.dll"
 -a="/Users/mariasantos/Developer/Unity/Palma Activa 2021/curso-unity-pa2021/Pokimon/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll"
 -s="/Applications/Unity/Hub/Editor/2021.1.12f1/Unity.app/Contents/Managed/UnityEngine"
--s="/Applications/Unity/Hub/Editor/2021.1.12f1/PlaybackEngines/WebGLSupport/Managed"
 -s="/Users/mariasantos/Developer/Unity/Palma Activa 2021/curso-unity-pa2021/Pokimon/Library/ScriptAssemblies"
 -s="/Users/mariasantos/Developer/Unity/Palma Activa 2021/curso-unity-pa2021/Pokimon/Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/AOT"
 -s="/Users/mariasantos/Developer/Unity/Palma Activa 2021/curso-unity-pa2021/Pokimon/Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/Portable"
