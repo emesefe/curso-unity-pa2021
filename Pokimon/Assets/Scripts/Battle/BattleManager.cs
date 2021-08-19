@@ -782,17 +782,32 @@ public class BattleManager : MonoBehaviour
     private IEnumerator RunMoveStats(Pokemon attacker, Pokemon target, Move move)
     {
         // Movimiento de tipo Cambio de Estado
-        foreach (StatBoosting effect in move.Base.Effects.Boostings)
+        // Stats Boosting
+        foreach (StatBoosting boost in move.Base.Effects.Boostings)
         {
-            if (effect.target == MoveTarget.Self)
+            if (boost.target == MoveTarget.Self)
             {
                 // Attacker recibe el Boosting
-                attacker.ApplyBoost(effect);
+                attacker.ApplyBoost(boost);
             }
             else
             {
                 // Target recibe el Boosting
-                target.ApplyBoost(effect);
+                target.ApplyBoost(boost);
+            }
+        }
+        
+        // Status Condition
+        if (move.Base.Effects.Status != StatusConditionID.None)
+        {
+            // Aplicamos el estado alterado
+            if (move.Base.Target == MoveTarget.Other)
+            {
+                target.SetStatusCondition(move.Base.Effects.Status);
+            }
+            else
+            {
+                attacker.SetStatusCondition(move.Base.Effects.Status);
             }
         }
 

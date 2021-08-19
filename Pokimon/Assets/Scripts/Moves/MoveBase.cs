@@ -47,8 +47,10 @@ public enum MoveType
 public class MoveStatEffect
 {
     public List<StatBoosting> Boostings => boostings;
+    public StatusConditionID Status => status;
     
     [SerializeField] private List<StatBoosting> boostings;
+    [SerializeField] private StatusConditionID status;
 }
 
 [Serializable]

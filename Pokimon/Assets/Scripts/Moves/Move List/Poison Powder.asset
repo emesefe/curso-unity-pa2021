@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Poison Powder
   m_EditorClassIdentifier: 
   name: Polvo Veneno
-  description: "Polvo t\xF3xico que envenena al objetivo"
+  description: "Polvo t\xF3xico que envenena al objetivo."
   type: 14
   pp: 35
   power: 0
@@ -21,4 +21,5 @@ MonoBehaviour:
   moveType: 2
   effects:
     boostings: []
+    status: 4
   target: 1

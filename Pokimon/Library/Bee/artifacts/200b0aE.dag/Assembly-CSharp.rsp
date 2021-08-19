@@ -362,6 +362,8 @@
 "Assets/Scripts/Pokemon/PokemonBase.cs"
 "Assets/Scripts/Pokemon/PokemonMapArea.cs"
 "Assets/Scripts/Pokemon/PokemonParty.cs"
+"Assets/Scripts/Status Conditions/StatusCondition.cs"
+"Assets/Scripts/Status Conditions/StatusConditionFactory.cs"
 -langversion:8.0
 
 /deterministic

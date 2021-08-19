@@ -60,6 +60,8 @@ public class Pokemon
     public Dictionary<Stat, int> StatsBoosted { get; private set; }
     
     public Queue<string> StatsChangeMessages { get; private set; }
+    
+    public StatusCondition StatusCondition { get; set; }
 
     #endregion
     
@@ -155,15 +157,29 @@ public class Pokemon
 
         int totalDamage = Mathf.FloorToInt(baseDamage * modifiers);
 
-        HP -= totalDamage;
+        UpdateHP(totalDamage);
+        if (HP <= 0)
+        {
+            damageDescription.Weakened = true;
+        }
+
+        return damageDescription;
+    }
+
+    public void UpdateHP(int damage)
+    {
+        HP -= damage;
 
         if (HP <= 0)
         {
             HP = 0;
-            damageDescription.Weakened = true;
         }
-        
-        return damageDescription;
+    }
+
+    public void SetStatusCondition(StatusConditionID id)
+    {
+        StatusCondition = StatusConditionFactory.StatusConditions[id];
+        StatsChangeMessages.Enqueue($"{Base.Name} {StatusCondition.StartMessage}");
     }
 
     public Move RandomMovement()

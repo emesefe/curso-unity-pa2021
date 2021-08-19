@@ -1390,14 +1390,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pokemons:
-  - _base: {fileID: 11400000, guid: 7979464e5e8a14db0a1a478688d32c2a, type: 2}
-    _level: 9
+  - _base: {fileID: 11400000, guid: 1826ff0a452824027b4c1361a8487c25, type: 2}
+    _level: 15
+  - _base: {fileID: 11400000, guid: 10be787f6e14d4b37a7ef0e2959f5196, type: 2}
+    _level: 15
   - _base: {fileID: 11400000, guid: cb83e67a037834e28811b575c1003359, type: 2}
     _level: 7
   - _base: {fileID: 11400000, guid: 4370ec7e237da4733be8467ff12cf526, type: 2}
     _level: 9
-  - _base: {fileID: 11400000, guid: 1826ff0a452824027b4c1361a8487c25, type: 2}
-    _level: 100
   - _base: {fileID: 11400000, guid: 336873e4cdf88433b88a7c66866837c7, type: 2}
     _level: 7
 --- !u!1 &710766041
@@ -24020,7 +24020,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.8
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
