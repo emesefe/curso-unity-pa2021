@@ -57,6 +57,7 @@ public class BattleManager : MonoBehaviour
     private float timeSinceLastClick;
     private float timeBetweenClicks = 0.5f;
     private float timeAfterText = 1;
+    private float timeAfterLevelUp = 1f;
 
     private PokemonParty playerParty;
     private Pokemon wildPokemon;
@@ -486,9 +487,8 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            int oldHPValue = target.Pokemon.HP;
             DamageDescription damageDescription = target.Pokemon.ReceiveDamage(attacker.Pokemon, move);
-            yield return target.HUD.UpdatePokemonData(oldHPValue);
+            yield return target.HUD.UpdatePokemonData();
 
             yield return ShowDamageDescription(damageDescription); 
         }
@@ -496,6 +496,17 @@ public class BattleManager : MonoBehaviour
         if (target.Pokemon.HP <= 0)
         {
             yield return HandlePokemonWeakened(target);
+        }
+        
+        // Acaba el turno del atacante (attacker)
+        // Comprobamos estados alterados (quemadura, envenenamiento...)
+        attacker.Pokemon.OnFinishTurn();
+        yield return ShowStatsMessages(attacker.Pokemon);
+        yield return attacker.HUD.UpdatePokemonData();
+        
+        if (attacker.Pokemon.HP <= 0)
+        {
+            yield return HandlePokemonWeakened(attacker);
         }
     }
 
@@ -686,10 +697,13 @@ public class BattleManager : MonoBehaviour
             // Checkear si hay que subir de nivel
             while (playerUnit.Pokemon.NeedsToLevelUp())
             {
-                playerUnit.HUD.SetLevelText();
-                yield return playerUnit.HUD.UpdatePokemonData(playerUnit.Pokemon.HP);
-                yield return battleDialogBox.SetDialog($"¡{playerUnit.Pokemon.Base.Name} sube de nivel!");
                 AudioManager.SharedInstance.PlaySound(levelUpClip);
+                playerUnit.HUD.SetLevelText();
+                playerUnit.Pokemon.HasHPChanged = true;
+                yield return playerUnit.HUD.UpdatePokemonData();
+                yield return new WaitForSeconds(timeAfterLevelUp);
+                yield return battleDialogBox.SetDialog($"¡{playerUnit.Pokemon.Base.Name} sube de nivel!");
+                
                 
                 // Comprobamos si el Pokemon debe aprender nuevo movimiento
                 LearnableMove newLearnableMove = playerUnit.Pokemon.GetLearnableMoveAtCurrentLevel();

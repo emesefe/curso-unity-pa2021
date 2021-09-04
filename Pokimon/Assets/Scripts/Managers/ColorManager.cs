@@ -11,7 +11,7 @@ public class ColorManager : MonoBehaviour
     public Color defaultColor => new Color(0.1960784f, 0.1960784f, 0.1960784f, 1);
     
     public Color highHPColor => new Color(0.282353f, 0.7215686f, 0.4078432f, 1);
-    public Color lowHPColor => new Color(0.8784314f, 0.7529413f, 0.7529413f, 1);
+    public Color lowHPColor => new Color(0.8784314f, 0.7529413f, 0.372549f, 1);
     public Color dangerHPColor => new Color(0.7411765f, 0.1607843f, 0.1254902f, 1);
     
     private float lowHPThreshold = 0.5f;

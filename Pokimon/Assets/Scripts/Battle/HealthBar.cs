@@ -10,12 +10,15 @@ public class HealthBar : MonoBehaviour
     #region VARIABLES PUBLICAS
     
     public GameObject healthBar;
+    public Text currentHPText;
+    public Text maxHPText;
 
     #endregion
 
     #region VARIABLES PRIVADAS
 
     private Image healthBarImage;
+    private float healthBarAnimationDuration = 1f;
 
     #endregion
 
@@ -23,34 +26,29 @@ public class HealthBar : MonoBehaviour
     /// Actualiza la barra de vida a partir del valor normlaizado de la misma
     /// </summary>
     /// <param name="normalizedValue">Valor de la vida normalizado entre 0 y 1</param>
-    public void SetHP(float normalizedValue)
+    public void SetHP(Pokemon pokemon)
     {
+        float normalizedValue = (float) pokemon.HP / pokemon.MaxHP;
         healthBar.transform.localScale = new Vector3(normalizedValue, 1f); 
         healthBar.GetComponent<Image>().color = ColorManager.SharedInstance.ColorRange(normalizedValue);
+        maxHPText.text = $"/{pokemon.MaxHP}";
     }
+    
 
     /// <summary>
-    /// Actualiza la barra de vida a partir del valor normlaizado de la misma y muestra el cambio de forma suavizada
+    /// Actualiza la barra de vida a partir del valor normalizado de la misma y muestra el cambio de forma suavizada
     /// Cambia de color cuando la barra baja de un cierto umbral
     /// </summary>
     /// <param name="normalizedValue">Valor de la vida normalizado entre 0 y 1</param>
-    public IEnumerator SetSmoothHP(float normalizedValue)
+    public IEnumerator SetSmoothHP(Pokemon pokemon)
     {
-        /*float currentScale = healthBar.transform.localScale.x;
-        float updateQuantity = currentScale - normalizedValue;
-
-        while (currentScale - normalizedValue > Mathf.Epsilon)
-        {
-            currentScale -= updateQuantity * Time.deltaTime;
-            healthBar.transform.localScale = new Vector3(currentScale, 1);
-            
-
-            yield return null;
-        }*/
-
+        float normalizedValue = (float) pokemon.HP / pokemon.MaxHP;
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(healthBar.transform.DOScaleX(normalizedValue, 1));
-        sequence.Join(healthBar.GetComponent<Image>().DOColor(ColorManager.SharedInstance.ColorRange(normalizedValue), 1));
+        sequence.Append(healthBar.transform.DOScaleX(normalizedValue, healthBarAnimationDuration));
+        sequence.Join(healthBar.GetComponent<Image>().DOColor(ColorManager.SharedInstance.ColorRange(normalizedValue), 
+            healthBarAnimationDuration));
+        sequence.Join(currentHPText.DOCounter(pokemon.previousHPValue, pokemon.HP, 
+            healthBarAnimationDuration));
         yield return sequence.WaitForCompletion();
     }
 }

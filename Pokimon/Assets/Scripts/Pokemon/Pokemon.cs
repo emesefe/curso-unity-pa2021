@@ -63,6 +63,9 @@ public class Pokemon
     
     public StatusCondition StatusCondition { get; set; }
 
+    public bool HasHPChanged { get; set; } = false;
+    public int previousHPValue;
+
     #endregion
     
     #region VARIABLES PRIVADAS
@@ -91,7 +94,6 @@ public class Pokemon
     {
         _moves = new List<Move>();
 
-        _hp = MaxHP;
         _experience = _base.GetNecessaryExperienceForLevel(_level);
 
         foreach (LearnableMove learnableMove in _base.LearnableMoves)
@@ -108,6 +110,9 @@ public class Pokemon
         }
         
         CalculateStats();
+        _hp = MaxHP;
+        previousHPValue = MaxHP;
+        HasHPChanged = true;
         ResetBoostings();
     }
 
@@ -168,6 +173,8 @@ public class Pokemon
 
     public void UpdateHP(int damage)
     {
+        HasHPChanged = true;
+        previousHPValue = HP;
         HP -= damage;
 
         if (HP <= 0)
@@ -262,6 +269,13 @@ public class Pokemon
             {Stat.SpDefense, 0},
             {Stat.Speed, 0}
         };
+    }
+
+    public void OnFinishTurn()
+    {
+        // El primer ? es para saber si el pokemon tiene StatusCondition
+        // El segundo ? es para saber si tiene la propiedad OnFinishTurn del StatusCondition
+        StatusCondition?.OnFinishTurn?.Invoke(this);
     }
 
     public void OnBattleFinish()

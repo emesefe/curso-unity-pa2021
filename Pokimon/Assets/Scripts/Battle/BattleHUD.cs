@@ -9,7 +9,6 @@ public class BattleHUD : MonoBehaviour
 {
     public Text pokemonName;
     public Text pokemonLevel;
-    public Text pokemonHealth;
     public HealthBar healthBar;
     public GameObject expBar;
 
@@ -21,30 +20,18 @@ public class BattleHUD : MonoBehaviour
         
         pokemonName.text = pokemon.Base.Name;
         SetLevelText();
-        healthBar.SetHP((float)_pokemon.HP / _pokemon.MaxHP);
+        healthBar.SetHP(_pokemon);
         SetExpBar();
-        StartCoroutine(UpdatePokemonData(pokemon.HP));
+        StartCoroutine(UpdatePokemonData());
     }
 
-    public IEnumerator UpdatePokemonData(int oldHPValue)
+    public IEnumerator UpdatePokemonData()
     {
-        StartCoroutine(healthBar.SetSmoothHP((float) _pokemon.HP / _pokemon.MaxHP));
-        StartCoroutine(DecreaseHealthPoints(oldHPValue));
-        yield return null;
-    }
-
-    private IEnumerator DecreaseHealthPoints(int oldHPValue)
-    {
-        float secondsBetweenChange = (float) 1 / (oldHPValue - _pokemon.HP);
-
-        while (oldHPValue > _pokemon.HP)
+        if (_pokemon.HasHPChanged)
         {
-            oldHPValue--;
-            pokemonHealth.text = $"{oldHPValue} / {_pokemon.MaxHP}";
-            yield return new WaitForSeconds(secondsBetweenChange);
+            yield return healthBar.SetSmoothHP(_pokemon);
+            _pokemon.HasHPChanged = false;
         }
-        
-        pokemonHealth.text = $"{_pokemon.HP} / {_pokemon.MaxHP}";
     }
 
     public IEnumerator SetExpBarSmooth(bool needsToResetBar = false)
