@@ -31,6 +31,7 @@ public class HealthBar : MonoBehaviour
         float normalizedValue = (float) pokemon.HP / pokemon.MaxHP;
         healthBar.transform.localScale = new Vector3(normalizedValue, 1f); 
         healthBar.GetComponent<Image>().color = ColorManager.SharedInstance.ColorRange(normalizedValue);
+        currentHPText.text = $"{pokemon.HP}";
         maxHPText.text = $"/{pokemon.MaxHP}";
     }
     

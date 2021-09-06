@@ -476,6 +476,14 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator RunMovement(BattleUnit attacker, BattleUnit target, Move move)
     {
+        // Comprobamos estados alterados que impidan atacar en este turno (parálisis, dormido, congelado...)
+        bool canRunMovement = attacker.Pokemon.OnStartTurn();
+        if (!canRunMovement)
+        {
+            yield return ShowStatsMessages(attacker.Pokemon);
+            yield break;
+        }
+        
         move.PP--;
         yield return battleDialogBox.SetDialog($"{attacker.Pokemon.Base.Name} ha usado {move.Base.Name}.");
 

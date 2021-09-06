@@ -1428,6 +1428,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokemons:
   - previousHPValue: 0
+    _base: {fileID: 11400000, guid: 336873e4cdf88433b88a7c66866837c7, type: 2}
+    _level: 7
+  - previousHPValue: 0
     _base: {fileID: 11400000, guid: 1826ff0a452824027b4c1361a8487c25, type: 2}
     _level: 15
   - previousHPValue: 0
@@ -1439,9 +1442,6 @@ MonoBehaviour:
   - previousHPValue: 0
     _base: {fileID: 11400000, guid: 4370ec7e237da4733be8467ff12cf526, type: 2}
     _level: 9
-  - previousHPValue: 0
-    _base: {fileID: 11400000, guid: 336873e4cdf88433b88a7c66866837c7, type: 2}
-    _level: 7
 --- !u!1 &710766041
 GameObject:
   m_ObjectHideFlags: 0
@@ -24184,7 +24184,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -42818,7 +42818,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0

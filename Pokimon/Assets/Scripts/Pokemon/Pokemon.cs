@@ -270,6 +270,19 @@ public class Pokemon
             {Stat.Speed, 0}
         };
     }
+    
+    public bool OnStartTurn()
+    {
+        // Este método está vinculado al OnStartTurn de un estado alterado
+        if (StatusCondition?.OnStartTurn != null)
+        {
+            return StatusCondition.OnStartTurn(this);
+        }
+        
+        // Por defecto podemos atacar
+        return true; 
+        
+    }
 
     public void OnFinishTurn()
     {
