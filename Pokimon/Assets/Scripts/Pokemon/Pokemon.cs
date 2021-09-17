@@ -59,12 +59,14 @@ public class Pokemon
     public Dictionary<Stat, int> Stats { get; private set; }
     public Dictionary<Stat, int> StatsBoosted { get; private set; }
     
-    public Queue<string> StatsChangeMessages { get; private set; }
+    public Queue<string> StatusChangeMessages { get; private set; }
     
     public StatusCondition StatusCondition { get; set; }
 
     public bool HasHPChanged { get; set; } = false;
     public int previousHPValue;
+
+    public int StatusNumberTurns { get; set; }
 
     #endregion
     
@@ -186,7 +188,8 @@ public class Pokemon
     public void SetStatusCondition(StatusConditionID id)
     {
         StatusCondition = StatusConditionFactory.StatusConditions[id];
-        StatsChangeMessages.Enqueue($"{Base.Name} {StatusCondition.StartMessage}");
+        StatusCondition?.OnApplyStatusCondition?.Invoke(this); // Específico de cuando entramos en estado de dormido
+        StatusChangeMessages.Enqueue($"{Base.Name} {StatusCondition.StartMessage}");
     }
 
     public Move RandomMovement()
@@ -244,23 +247,23 @@ public class Pokemon
         if (value > 0)
         {
             // La estadística del pokemon ha incrementado
-            StatsChangeMessages.Enqueue($"{Base.Name} ha incrementado su {stat}.");
+            StatusChangeMessages.Enqueue($"{Base.Name} ha incrementado su {stat}.");
         }
         else if (value < 0)
         {
             // La estadística del pokemon ha decrementado
-            StatsChangeMessages.Enqueue($"{Base.Name} ha reducido su {stat}.");
+            StatusChangeMessages.Enqueue($"{Base.Name} ha reducido su {stat}.");
         }
         else
         {
             // value = 0
-            StatsChangeMessages.Enqueue($"{Base.Name} no nota ningún efecto.");
+            StatusChangeMessages.Enqueue($"{Base.Name} no nota ningún efecto.");
         }
     }
 
     private void ResetBoostings()
     {
-        StatsChangeMessages = new Queue<string>();
+        StatusChangeMessages = new Queue<string>();
         StatsBoosted = new Dictionary<Stat, int>()
         {
             {Stat.Attack, 0},
@@ -294,6 +297,11 @@ public class Pokemon
     public void OnBattleFinish()
     {
         ResetBoostings();
+    }
+
+    public void CureStatusCondition()
+    {
+        StatusCondition = null;
     }
 }
 

@@ -484,6 +484,9 @@ public class BattleManager : MonoBehaviour
             yield break;
         }
         
+        // Por si ha quedado algún mensaje encolado
+        yield return ShowStatsMessages(attacker.Pokemon);
+        
         move.PP--;
         yield return battleDialogBox.SetDialog($"{attacker.Pokemon.Base.Name} ha usado {move.Base.Name}.");
 
@@ -520,9 +523,9 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator ShowStatsMessages(Pokemon pokemon)
     {
-        while (pokemon.StatsChangeMessages.Count > 0)
+        while (pokemon.StatusChangeMessages.Count > 0)
         { 
-            string message = pokemon.StatsChangeMessages.Dequeue();
+            string message = pokemon.StatusChangeMessages.Dequeue();
             yield return battleDialogBox.SetDialog(message);
             yield return new WaitForSeconds(timeAfterText);
         }
