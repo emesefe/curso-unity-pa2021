@@ -5,6 +5,16 @@ using UnityEngine;
 
 public class StatusConditionFactory
 {
+    public static void InitFactory()
+    {
+        foreach (var condition in StatusConditions)
+        {
+            StatusConditionID id = condition.Key;
+            StatusCondition statusCondition = condition.Value;
+            statusCondition.Id = id;
+        }
+    }
+    
     public static Dictionary<StatusConditionID, StatusCondition> StatusConditions { get; set; } = 
         new Dictionary<StatusConditionID, StatusCondition>()
         {

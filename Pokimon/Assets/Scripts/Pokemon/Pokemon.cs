@@ -13,7 +13,7 @@ public class Pokemon
 {
     #region VARIABLES PÚBLICAS
     // Vida base por nivel
-    public int MaxHP { get => Mathf.FloorToInt((_base.MaxHP * _level) / 20f) + 10; }
+    public int MaxHP { get => Mathf.FloorToInt((_base.MaxHP * _level) / 20f) + 10 + _level; }
     
     // Ataque base por nivel
     public int Attack { get => GetStat(Stat.Attack); }
@@ -67,6 +67,8 @@ public class Pokemon
     public int previousHPValue;
 
     public int StatusNumberTurns { get; set; }
+
+    public event Action OnStatusConditionChanged;
 
     #endregion
     
@@ -187,9 +189,14 @@ public class Pokemon
 
     public void SetStatusCondition(StatusConditionID id)
     {
+        if (StatusCondition != null)
+        {
+            return;
+        }
         StatusCondition = StatusConditionFactory.StatusConditions[id];
         StatusCondition?.OnApplyStatusCondition?.Invoke(this); // Específico de cuando entramos en estado de dormido
         StatusChangeMessages.Enqueue($"{Base.Name} {StatusCondition.StartMessage}");
+        OnStatusConditionChanged?.Invoke();
     }
 
     public Move RandomMovement()

@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
         battleManager.OnBattleFinished += FinishPokemonBattle;
         
         AudioManager.SharedInstance.PlayMusic(worldClip);
+        StatusConditionFactory.InitFactory();
     }
 
     private void Update()
